@@ -4,7 +4,7 @@ import {
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google";
 import { env } from "~/env.mjs";
 
 /**
@@ -35,18 +35,26 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+    signIn({ account, profile }) {
+      if (!account || !profile) return false;
+      if (account.provider === "google") {
+        return (profile.email as string).endsWith("@btech.edu");
+      }
+      return true; // Do different verification for other providers that don't have `email_verified`
+    },
+    session: ({ session }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+        },
+      };
+    },
   },
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
     /**
      * ...add more providers here.
