@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.21.0",
     "next": "^13.2.4",
     "next-auth": "^4.21.0",
     "react": "18.2.0",
