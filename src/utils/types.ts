@@ -1,9 +1,7 @@
 import type { PostgrestError } from "@supabase/supabase-js";
 
 type WithData<T> = {
-  data: {
-    [key: string]: T;
-  }[];
+  data: T;
   error: undefined;
 };
 type WithError<E> = { data: undefined; error: E };

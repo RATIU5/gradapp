@@ -1,5 +1,5 @@
 import { type NextPage } from "next";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import Layout from "~/components/layout";
 
 type Arrivals = object;

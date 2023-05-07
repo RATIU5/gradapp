@@ -48,8 +48,8 @@ const Layout: FunctionComponent<PropsWithChildren<Layout>> = (props) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="m-0 flex flex-col justify-between bg-orange-100">
-        <header className="overflow-hidden">
+      <div className="m-0 flex h-full w-full flex-col justify-between bg-orange-50">
+        <header className="flex-shrink overflow-hidden shadow-lg shadow-orange-950/10">
           <nav className="t-0 sticky flex w-full flex-wrap items-center justify-between bg-white px-2 py-3 shadow-md lg:relative">
             <Link href="/">
               <Image
@@ -103,6 +103,7 @@ const Layout: FunctionComponent<PropsWithChildren<Layout>> = (props) => {
 
               <li className="m-4 flex items-center justify-center lg:m-0 lg:mx-2">
                 <button
+                  type="button"
                   className="rounded-md border border-solid border-red-800 bg-red-700 px-4 py-2 text-lg font-bold text-white"
                   onClick={() => void (session ? signOut() : signIn())}
                 >
@@ -136,7 +137,7 @@ const Layout: FunctionComponent<PropsWithChildren<Layout>> = (props) => {
             </button>
           </nav>
         </header>
-        <main className="flex-grow">{props.children}</main>
+        <main className="flex-1 flex-grow overflow-auto">{props.children}</main>
       </div>
     </>
   );
