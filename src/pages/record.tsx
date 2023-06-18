@@ -4,7 +4,7 @@ import { useState, Fragment } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import Layout from "~/components/layout";
 import QueryData from "~/components/layout/query-data";
-import { getAllPeople } from "~/utils/query-fns";
+import { getAllProgramsAndPeople } from "~/utils/query-fns";
 
 type Record = object;
 
@@ -21,6 +21,7 @@ type Person = {
   highschool: boolean;
   persontype: number;
   present: boolean;
+  programName: string;
 };
 
 const Record: NextPage<Record> = (props) => {
@@ -28,7 +29,7 @@ const Record: NextPage<Record> = (props) => {
   const [selectedPerson, setSelectedPerson] = useState(undefined);
   const peopleQuery = useQuery({
     queryKey: ["all-people"],
-    queryFn: getAllPeople,
+    queryFn: getAllProgramsAndPeople,
   });
 
   const onChange = (value: string) => {
@@ -43,7 +44,8 @@ const Record: NextPage<Record> = (props) => {
           .filter((person) => {
             return (
               person.firstname.toLowerCase().includes(query.toLowerCase()) ||
-              person.lastname.toLowerCase().includes(query.toLocaleLowerCase())
+              person.lastname.toLowerCase().includes(query.toLowerCase()) ||
+              person.programName.toLowerCase().includes(query.toLowerCase())
             );
           })
           .slice(0, 10);
@@ -51,7 +53,7 @@ const Record: NextPage<Record> = (props) => {
 
   return (
     <Layout>
-      <div className="mx-auto mt-12 flex w-72 flex-col items-center">
+      <div className="mx-auto mt-12 flex w-full min-w-[20rem] max-w-[40rem] flex-col items-center p-4">
         <QueryData dataQuery={peopleQuery}>
           {(arr) => (
             <Combobox value={selectedPerson} onChange={setSelectedPerson}>
@@ -71,7 +73,7 @@ const Record: NextPage<Record> = (props) => {
               >
                 <Combobox.Options
                   as="table"
-                  className="relative mt-4 flex w-full cursor-default justify-between overflow-hidden rounded-xl bg-white p-4 text-left shadow-md"
+                  className="relative mt-4 flex w-full cursor-default justify-between overflow-hidden rounded-xl bg-white p-2 text-left shadow-md"
                 >
                   <tbody className="w-full">
                     {filteredPeople(arr).length === 0 && query !== "" ? (
@@ -80,6 +82,7 @@ const Record: NextPage<Record> = (props) => {
                       filteredPeople(arr).map((person) => (
                         <Combobox.Option
                           as="tr"
+                          className="relative m-1 block rounded-lg px-4 py-2 ui-active:bg-slate-100"
                           key={person.id}
                           value={person.id}
                         >
@@ -87,6 +90,9 @@ const Record: NextPage<Record> = (props) => {
                             <span>
                               {person.firstname + " " + person.lastname}
                             </span>
+                          </td>
+                          <td>
+                            <span>{person.programName}</span>
                           </td>
                           <td>
                             {person.platinum ? <span>P</span> : undefined}
