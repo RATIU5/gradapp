@@ -26,7 +26,7 @@ type Person = {
 
 const Record: NextPage<Record> = (props) => {
   const [query, setQuery] = useState("");
-  const [selectedPerson, setSelectedPerson] = useState(undefined);
+  const [selectedPerson, setSelectedPerson] = useState({});
   const peopleQuery = useQuery({
     queryKey: ["all-people"],
     queryFn: getAllProgramsAndPeople,
@@ -86,7 +86,7 @@ const Record: NextPage<Record> = (props) => {
                   <tbody className="w-full">
                     {filteredPeople(arr).length === 0 && query !== "" ? (
                       <tr className="relative m-1 block items-center rounded-lg px-4 py-2 ui-active:bg-gray-100">
-                        No people found
+                        <td>No people found</td>
                       </tr>
                     ) : (
                       filteredPeople(arr).map((person) => (
@@ -113,11 +113,11 @@ const Record: NextPage<Record> = (props) => {
                                   width="24"
                                   height="24"
                                   viewBox="0 0 24 24"
-                                  stroke-width="2"
+                                  strokeWidth="2"
                                   stroke="currentColor"
                                   fill="none"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 >
                                   <path
                                     stroke="none"
@@ -142,11 +142,11 @@ const Record: NextPage<Record> = (props) => {
                                   width="24"
                                   height="24"
                                   viewBox="0 0 24 24"
-                                  stroke-width="2"
+                                  strokeWidth="2"
                                   stroke="currentColor"
                                   fill="none"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 >
                                   <path
                                     stroke="none"
