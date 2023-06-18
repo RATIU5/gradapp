@@ -61,8 +61,6 @@ export async function getAllPeople() {
       }[]
     >;
 
-    console.log(data);
-
     if (!data) {
       throw new Error("Failed to parse all people");
     }
