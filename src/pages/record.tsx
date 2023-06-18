@@ -2,9 +2,9 @@ import { type NextPage } from "next";
 import { useState } from "react";
 import Layout from "~/components/layout";
 
-type Validate = object;
+type Record = object;
 
-const Validate: NextPage<Validate> = (props) => {
+const Record: NextPage<Record> = (props) => {
   const [nameValue, setNameValue] = useState("");
 
   const onChange = (value: string) => {
@@ -29,4 +29,4 @@ const Validate: NextPage<Validate> = (props) => {
   );
 };
 
-export default Validate;
+export default Record;

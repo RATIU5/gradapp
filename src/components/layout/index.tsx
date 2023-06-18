@@ -19,7 +19,7 @@ const Layout: FunctionComponent<PropsWithChildren<Layout>> = (props) => {
   const [navbarOpen, setNavbarOpen] = useState(false);
 
   const links = [
-    { href: "/validate", label: "Validate", auth: false },
+    { href: "/record", label: "Record", auth: false },
     { href: "/arrivals", label: "Arrivals", auth: false },
     { href: "/invities", label: "Invities", auth: true },
     { href: "/programs", label: "Programs", auth: true },
