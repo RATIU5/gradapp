@@ -5,12 +5,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  let { data: arrivals, error } = await supabase
-    .from("arrivals")
-    .select("*")
-    .is("present", false);
+  const { data: arrivals, error } = await supabase.from("people").select("*");
   if (error) {
     return res.status(500).json({ error });
   }
-  return res.status(200).json({ arrivals });
+  return res.status(200).json({ data: arrivals });
 }
