@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { type NextPage } from "next";
-import { useState } from "react";
-import { Combobox } from "@headlessui/react";
+import { useState, Fragment } from "react";
+import { Combobox, Transition } from "@headlessui/react";
 import Layout from "~/components/layout";
 import QueryData from "~/components/layout/query-data";
 import { getAllPeople } from "~/utils/query-fns";
@@ -9,7 +9,7 @@ import { getAllPeople } from "~/utils/query-fns";
 type Record = object;
 
 // people database columns
-// i want to unwrap the UseQueryResult datatype instead
+// i want to unwrap this from UseQueryResult datatype instead
 // TODO ^^^^
 type Person = {
   id: number;
@@ -24,7 +24,7 @@ type Person = {
 };
 
 const Record: NextPage<Record> = (props) => {
-  const [nameQuery, setNameQuery] = useState("");
+  const [query, setQuery] = useState("");
   const [selectedPerson, setSelectedPerson] = useState(undefined);
   const peopleQuery = useQuery({
     queryKey: ["all-people"],
@@ -32,42 +32,74 @@ const Record: NextPage<Record> = (props) => {
   });
 
   const onChange = (value: string) => {
-    setNameQuery(value);
+    setQuery(value);
     // searchGuests(query);
   };
 
-  const filteredPeople = (people: Person[]) =>
-    nameQuery === ""
+  const filteredPeople = (people: Person[]) => {
+    return query === ""
       ? []
       : people
           .filter((person) => {
             return (
-              person.firstname
-                .toLowerCase()
-                .includes(nameQuery.toLowerCase()) ||
-              person.lastname
-                .toLowerCase()
-                .includes(nameQuery.toLocaleLowerCase())
+              person.firstname.toLowerCase().includes(query.toLowerCase()) ||
+              person.lastname.toLowerCase().includes(query.toLocaleLowerCase())
             );
           })
           .slice(0, 10);
+  };
 
   return (
     <Layout>
-      <div>
+      <div className="mx-auto mt-12 flex w-72 flex-col items-center">
         <QueryData dataQuery={peopleQuery}>
           {(arr) => (
             <Combobox value={selectedPerson} onChange={setSelectedPerson}>
-              <Combobox.Input
-                onChange={(event) => setNameQuery(event.target.value)}
-              />
-              <Combobox.Options>
-                {filteredPeople(arr).map((person) => (
-                  <Combobox.Option key={person.id} value={person.id}>
-                    {person.firstname + " " + person.lastname}
-                  </Combobox.Option>
-                ))}
-              </Combobox.Options>
+              <div className="relative w-full cursor-default overflow-hidden rounded-xl bg-white text-left shadow-md transition duration-150 ease-in-out focus-within:ring-2 focus-within:ring-white focus-within:ring-opacity-75 focus-within:ring-offset-2 focus-within:ring-offset-red-400 focus:outline-none sm:text-sm">
+                <Combobox.Input
+                  placeholder="Name or Program"
+                  className="w-full border-none py-3 pl-4 pr-10 text-lg leading-5 text-gray-900 outline-none focus:ring-0"
+                  onChange={(event) => setQuery(event.target.value)}
+                />
+              </div>
+              <Transition
+                as={Fragment}
+                leave="transition ease-in duration-100"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+                afterLeave={() => setQuery("")}
+              >
+                <Combobox.Options
+                  as="table"
+                  className="relative mt-4 flex w-full cursor-default justify-between overflow-hidden rounded-xl bg-white p-4 text-left shadow-md"
+                >
+                  <tbody className="w-full">
+                    {filteredPeople(arr).length === 0 && query !== "" ? (
+                      <tr>No people found</tr>
+                    ) : (
+                      filteredPeople(arr).map((person) => (
+                        <Combobox.Option
+                          as="tr"
+                          key={person.id}
+                          value={person.id}
+                        >
+                          <td>
+                            <span>
+                              {person.firstname + " " + person.lastname}
+                            </span>
+                          </td>
+                          <td>
+                            {person.platinum ? <span>P</span> : undefined}
+                          </td>
+                          <td>
+                            {person.highschool ? <span>H</span> : undefined}
+                          </td>
+                        </Combobox.Option>
+                      ))
+                    )}
+                  </tbody>
+                </Combobox.Options>
+              </Transition>
             </Combobox>
           )}
         </QueryData>

@@ -19,7 +19,7 @@ function QueryData<T>(props: DataPromise<T>) {
       </div>
     );
   }
-  return <div>{props.children(props.dataQuery.data)}</div>;
+  return props.children(props.dataQuery.data);
 }
 
 export default QueryData;
