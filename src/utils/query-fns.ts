@@ -40,22 +40,31 @@ export async function getAllPrograms() {
 export async function getAllPeople() {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL as string}/programs/get-all`
+      `${process.env.NEXT_PUBLIC_API_URL as string}/people/get-all`
     );
 
     if (!res.ok) {
-      throw new Error("Failed to fetch all programs");
+      throw new Error("Failed to fetch all people");
     }
 
     const data = (await res.json()) as Response<
       {
-        name: string;
-        description: string;
+        id: number;
+        firstname: string;
+        lastname: string;
+        programid: number;
+        email: string;
+        platinum: boolean;
+        highschool: boolean;
+        persontype: number;
+        present: boolean;
       }[]
     >;
 
+    console.log(data);
+
     if (!data) {
-      throw new Error("Failed to parse all programs");
+      throw new Error("Failed to parse all people");
     }
 
     if (data.error) {
@@ -63,13 +72,11 @@ export async function getAllPeople() {
     }
 
     if (!data.data) {
-      throw new Error("Failed retrieve all programs");
+      throw new Error("Failed retrieve all people");
     }
 
     return data.data;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
-
-  return [];
 }

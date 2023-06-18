@@ -2,15 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { type NextPage } from "next";
 import { useState } from "react";
 import Layout from "~/components/layout";
-import { getAllPrograms } from "~/utils/query-fns";
+import QueryData from "~/components/layout/query-data";
+import { getAllPeople } from "~/utils/query-fns";
 
 type Record = object;
 
 const Record: NextPage<Record> = (props) => {
   const [nameValue, setNameValue] = useState("");
-  const programsQuery = useQuery({
-    queryKey: ["all-programs"],
-    queryFn: getAllPrograms,
+  const peopleQuery = useQuery({
+    queryKey: ["all-people"],
+    queryFn: getAllPeople,
   });
 
   const onChange = (value: string) => {
@@ -30,6 +31,15 @@ const Record: NextPage<Record> = (props) => {
             onChange={(e) => onChange(e.target.value as string)}
           />
         </form>
+        <QueryData dataQuery={peopleQuery}>
+          {(arr) => (
+            <div>
+              {arr.map((p) => {
+                return <p>{p.firstname}</p>;
+              })}
+            </div>
+          )}
+        </QueryData>
       </div>
     </Layout>
   );
