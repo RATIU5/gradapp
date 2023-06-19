@@ -1,4 +1,9 @@
-import { Response } from "~/utils/types";
+import {
+  Person,
+  PersonWithProgram,
+  ProgramWithPeople,
+  Response,
+} from "~/utils/types";
 
 export async function getAllPrograms() {
   try {
@@ -47,19 +52,7 @@ export async function getAllPeople() {
       throw new Error("Failed to fetch all people");
     }
 
-    const data = (await res.json()) as Response<
-      {
-        id: number;
-        firstname: string;
-        lastname: string;
-        programid: number;
-        email: string;
-        platinum: boolean;
-        highschool: boolean;
-        persontype: number;
-        present: boolean;
-      }[]
-    >;
+    const data = (await res.json()) as Response<Person[]>;
 
     if (!data) {
       throw new Error("Failed to parse all people");
@@ -86,54 +79,27 @@ export async function getAllProgramsAndPeople() {
     );
 
     if (!res.ok) {
-      throw new Error("Failed to fetch all people");
+      throw new Error("Network error while fetching programs with people");
     }
 
-    const data = (await res.json()) as Response<
-      {
-        id: number;
-        name: string;
-        people: {
-          id: number;
-          firstname: string;
-          lastname: string;
-          programid: number;
-          email: string;
-          platinum: boolean;
-          highschool: boolean;
-          persontype: number;
-          present: boolean;
-        }[];
-      }[]
-    >;
+    const data = (await res.json()) as Response<ProgramWithPeople[]>;
 
     if (!data.data) return;
 
     if (!data) {
-      throw new Error("Failed to parse all people");
+      throw new Error("Failed to parse all programs with people");
     }
 
     if (!data.data) {
-      throw new Error("Failed retrieve all people");
+      throw new Error("Failed retrieve all programs with people");
     }
 
     const programsWithPeople = data.data;
-    const output = [];
+    const output: PersonWithProgram[] = [];
 
     for (const program of programsWithPeople) {
       for (const person of program.people) {
-        output.push({
-          id: person.id,
-          firstname: person.firstname,
-          lastname: person.lastname,
-          programid: person.programid,
-          email: person.email,
-          platinum: person.platinum,
-          highschool: person.highschool,
-          persontype: person.persontype,
-          present: person.present,
-          programName: program.name,
-        });
+        output.push({ ...person, programName: program.name });
       }
     }
 

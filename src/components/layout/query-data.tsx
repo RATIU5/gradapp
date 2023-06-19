@@ -1,7 +1,7 @@
 import type { UseQueryResult } from "@tanstack/react-query";
 
 type DataPromise<T> = {
-  dataQuery: UseQueryResult<T[], unknown>;
+  dataQuery: UseQueryResult<T[] | undefined, unknown>;
   children: (e: T[]) => JSX.Element;
 };
 
@@ -19,7 +19,7 @@ function QueryData<T>(props: DataPromise<T>) {
       </div>
     );
   }
-  return props.children(props.dataQuery.data);
+  return props.children(props.dataQuery.data || []);
 }
 
 export default QueryData;
