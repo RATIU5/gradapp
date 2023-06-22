@@ -19,7 +19,9 @@ const Arrivals: NextPage<Arrivals> = (props) => {
           return (
             <>
               {attendeesArray.map((r) => (
-                <div></div>
+                <div key={r.id}>
+                  {r.firstname} {r.lastname}
+                </div>
               ))}
             </>
           );

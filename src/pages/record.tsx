@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { type NextPage } from "next";
 import { useState, Fragment } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import Layout from "~/components/layout";
 import QueryData from "~/components/layout/query-data";
-import { getAllProgramsAndPeople } from "~/utils/query-fns";
+import { getAllProgramsAndPeople, setPersonPresent } from "~/utils/query-fns";
 import { PersonWithProgram } from "~/utils/types";
 
 type Record = object;
@@ -16,10 +16,17 @@ const Record: NextPage<Record> = (props) => {
     queryKey: ["all-people"],
     queryFn: getAllProgramsAndPeople,
   });
+  const checkInMutation = useMutation({
+    mutationFn: () => setPersonPresent(selectedPerson, true),
+    onSuccess: () => {
+      peopleQuery.refetch();
+      setSelectedPerson(-1);
+    },
+  });
 
   const handleCheckIn = () => {
     if (selectedPerson < 0) return;
-    setSelectedPerson(-1);
+    checkInMutation.mutate();
   };
 
   const filteredPeople = (people: PersonWithProgram[]) => {

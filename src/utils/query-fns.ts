@@ -150,10 +150,20 @@ export async function getAllPresentPeopleWithPrograms() {
   }
 }
 
-export async function setPersonPresent() {
+export async function setPersonPresent(id: number, present: boolean) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL as string}/people/set-present`
+      `${process.env.NEXT_PUBLIC_API_URL as string}/people/set-present`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+          present,
+        }),
+      }
     );
 
     if (!res.ok) {
