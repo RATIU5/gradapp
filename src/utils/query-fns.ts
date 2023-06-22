@@ -149,3 +149,17 @@ export async function getAllPresentPeopleWithPrograms() {
     throw error;
   }
 }
+
+export async function setPersonPresent() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL as string}/people/set-present`
+    );
+
+    if (!res.ok) {
+      throw new Error("Network error while setting people present");
+    }
+  } catch (error) {
+    throw error;
+  }
+}

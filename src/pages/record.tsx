@@ -17,6 +17,11 @@ const Record: NextPage<Record> = (props) => {
     queryFn: getAllProgramsAndPeople,
   });
 
+  const handleCheckIn = () => {
+    if (selectedPerson < 0) return;
+    setSelectedPerson(-1);
+  };
+
   const filteredPeople = (people: PersonWithProgram[]) => {
     return query === ""
       ? []
@@ -34,27 +39,33 @@ const Record: NextPage<Record> = (props) => {
   return (
     <Layout>
       <div className="mx-auto mt-12 flex w-full min-w-[20rem] max-w-[40rem] flex-col items-center p-4">
-        <Combobox
-          value={selectedPerson}
-          onChange={(v) => {
-            console.log(v);
-
-            return setSelectedPerson(v);
-          }}
-        >
+        <Combobox value={selectedPerson} onChange={(v) => setSelectedPerson(v)}>
           <QueryData dataQuery={peopleQuery}>
             {(arr) => (
               <>
-                <div className="relative w-full cursor-default overflow-hidden rounded-xl bg-white text-left shadow-md transition duration-150 ease-in-out focus-within:ring-2 focus-within:ring-white focus-within:ring-opacity-75 focus-within:ring-offset-2 focus-within:ring-offset-red-400 focus:outline-none sm:text-sm">
-                  <Combobox.Input
-                    placeholder="Name or Program"
-                    displayValue={(id: number) => {
-                      const p = arr.filter((p) => p.id === id)[0];
-                      return `${p?.firstname} ${p?.lastname}`;
-                    }}
-                    // value={query}
-                    className="w-full border-none py-3 pl-4 pr-10 text-lg leading-5 text-gray-900 outline-none focus:ring-0"
-                    onChange={(event) => setQuery(event.target.value)}
+                <div className="flex w-full">
+                  <div className="relative w-full cursor-default overflow-hidden rounded-xl bg-white text-left shadow-md transition duration-150 ease-in-out focus-within:ring-2 focus-within:ring-white focus-within:ring-opacity-75 focus-within:ring-offset-2 focus-within:ring-offset-red-400 focus:outline-none sm:text-sm">
+                    <Combobox.Input
+                      placeholder="Name or Program"
+                      displayValue={(id: number) => {
+                        const p = arr.filter((p) => p.id === id)[0];
+                        return (
+                          ((p?.firstname || p?.lastname) &&
+                            `${p?.firstname || ""} ${p?.lastname || ""}`) ||
+                          ""
+                        );
+                      }}
+                      // value={query}
+                      className="w-full border-none py-3 pl-4 pr-10 text-lg leading-5 text-gray-900 outline-none focus:ring-0"
+                      onChange={(event) => setQuery(event.target.value)}
+                    />
+                  </div>
+                  <input
+                    type="button"
+                    value="Check In"
+                    disabled={selectedPerson < 0}
+                    onClick={handleCheckIn}
+                    className="text-md ml-4 cursor-pointer rounded-lg bg-red-700 px-4 py-2 font-bold text-white disabled:cursor-default disabled:bg-gray-500"
                   />
                 </div>
                 <Transition
