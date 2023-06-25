@@ -135,16 +135,39 @@ export async function getAllPresentPeopleWithPrograms() {
       throw new Error("Failed retrieve all programs with people present");
     }
 
-    const programsWithPeople = data.data;
-    const output: PersonWithProgram[] = [];
+    return data.data;
+  } catch (error) {
+    throw error;
+  }
+}
 
-    for (const program of programsWithPeople) {
-      for (const person of program.people) {
-        output.push({ ...person, programName: program.name });
-      }
+export async function getAllNotPresentPeopleWithPrograms() {
+  try {
+    const res = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_API_URL as string
+      }/program-people/get-all-not-present`
+    );
+
+    if (!res.ok) {
+      throw new Error(
+        "Network error while fetching programs with people not present"
+      );
     }
 
-    return output;
+    const data = (await res.json()) as Response<ProgramWithPeople[]>;
+
+    if (!data.data) return;
+
+    if (!data) {
+      throw new Error("Failed to parse all programs with people not present");
+    }
+
+    if (!data.data) {
+      throw new Error("Failed retrieve all programs with people not present");
+    }
+
+    return data.data;
   } catch (error) {
     throw error;
   }
