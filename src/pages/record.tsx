@@ -32,10 +32,28 @@ const Record: NextPage<Record> = (props) => {
     checkInMutation.mutate();
   };
 
-  const filteredPeople = (peopleArray: ProgramWithPeople[]) => {
-    console.log(query.trim().toLowerCase());
-
+  const filteredPeople = (
+    searchVal: string,
+    peopleArray: ProgramWithPeople[]
+  ) => {
     const filteredArray = [];
+
+    for (const program of peopleArray) {
+      for (const person of program.people) {
+        const fullName = `${person.firstname} ${person.lastname}`.toLowerCase();
+        const queryValue = searchVal.trim().toLowerCase();
+
+        if (fullName.includes(queryValue)) {
+          filteredArray.push({ ...person, program: program.name });
+        } else if (
+          program.name.toLowerCase().includes(queryValue) &&
+          !person.present
+        ) {
+          filteredArray.push({ ...person, program: program.name });
+        }
+      }
+    }
+
     // if (query === "") {
     //   for (const program of peopleArray) {
     //     for (const person of program.people) {
@@ -111,7 +129,7 @@ const Record: NextPage<Record> = (props) => {
                       </tr>
                     </thead>
                     <tbody className="w-full">
-                      {filteredPeople(arr).map((person) => (
+                      {filteredPeople(query, arr).map((person) => (
                         <Combobox.Option
                           as="tr"
                           className="relative m-1 grid grid-cols-12 items-center rounded-lg px-4 py-2 ui-active:bg-gray-100"
