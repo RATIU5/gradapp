@@ -93,17 +93,7 @@ export async function getAllProgramsAndPeople() {
     if (!data.data) {
       throw new Error("Failed retrieve all programs with people");
     }
-
-    const programsWithPeople = data.data;
-    const output: PersonWithProgram[] = [];
-
-    for (const program of programsWithPeople) {
-      for (const person of program.people) {
-        output.push({ ...person, programName: program.name });
-      }
-    }
-
-    return output;
+    return data.data;
   } catch (error) {
     throw error;
   }
