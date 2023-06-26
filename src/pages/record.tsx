@@ -12,6 +12,16 @@ type Record = object;
 const Record: NextPage<Record> = (props) => {
   const [query, setQuery] = useState("");
   const [selectedPersonId, setSelectedPersonId] = useState<number>(-1);
+  const [selectedPresent, setSelectedPresent] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (selectedPersonId > 0) {
+      const person = peopleQuery.data
+        ?.find((p) => p.people.find((c) => c.id === selectedPersonId))
+        ?.people.find((c) => c.id === selectedPersonId);
+      if (person) setSelectedPresent(person.present);
+    }
+  }, [selectedPersonId]);
 
   const peopleQuery = useQuery({
     queryKey: ["all-people-checkedout"],
@@ -99,7 +109,7 @@ const Record: NextPage<Record> = (props) => {
                   </div>
                   <input
                     type="button"
-                    value={selectedPersonId < 0 ? "Check In" : "Check Out"}
+                    value={!selectedPresent ? "Check In" : "Check Out"}
                     disabled={selectedPersonId < 0}
                     onClick={handleCheckIn}
                     className="text-md ml-4 cursor-pointer rounded-lg bg-red-700 px-4 py-2 font-bold text-white disabled:cursor-default disabled:bg-gray-500"
