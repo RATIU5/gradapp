@@ -35,4 +35,4 @@ export type Person = {
   present: boolean;
 };
 
-export type PersonWithProgram = Person & { programName: string };
+export type PersonWithProgram = Person & { program: string };
