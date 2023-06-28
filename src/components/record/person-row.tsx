@@ -1,4 +1,3 @@
-import { Combobox } from "@headlessui/react";
 import { PersonWithProgram } from "../../utils/types";
 
 interface Props {
@@ -7,30 +6,35 @@ interface Props {
 
 export const PersonRow = ({ person }: Props) => {
   return (
-    <Combobox.Option
-      as="tr"
+    <tr
       className={`${
-        person.present ? "bg-green-100 text-green-800" : ""
+        person.present ? "bg-green-50 text-green-900 " : ""
       }relative m-1 grid grid-cols-12 items-center rounded-lg px-4 py-2 ui-active:bg-gray-100`}
-      key={person.id}
-      value={person.id}
     >
-      <td className="col-span-5">
+      <td className="col-span-4">
         <span>{person.firstname + " " + person.lastname}</span>
       </td>
-      <td className="col-span-5 text-neutral-500">
+      <td className="col-span-4 text-neutral-500">
         <span>{person.program}</span>
       </td>
-      <td className="col-span-1 px-2">
+      <td className="col-span-2 px-2">
         <AchievmentIcons
           platinum={person.platinum}
           highschool={person.highschool}
         />
       </td>
-      <td className="col-span-1">
-        <input type="button" value="✓" className="btn btn-sm btn-primary" />
+      <td className="col-span-2">
+        <input
+          type="button"
+          value={person.present ? "Check Out" : "Check In"}
+          className={`bg-gray-100 text-gray-700 ${
+            person.present
+              ? "bg-red-100 text-red-800 hover:bg-red-200 "
+              : "hover:bg-gray-200 "
+          }relative mx-1 grid grid-cols-12 items-center rounded-lg px-4 py-2 text-sm`}
+        />
       </td>
-    </Combobox.Option>
+    </tr>
   );
 };
 
@@ -43,8 +47,8 @@ const AchievmentIcons = (props: AchievmentIconsProps) => {
   return (
     <table className="flex w-full justify-between">
       <tbody className="w-full">
-        <tr className="w-full">
-          <td>
+        <tr className="grid w-full grid-cols-12">
+          <td className="col-span-6">
             {props.platinum ? (
               <span>
                 <svg
@@ -69,7 +73,7 @@ const AchievmentIcons = (props: AchievmentIconsProps) => {
               </span>
             ) : undefined}
           </td>
-          <td>
+          <td className="col-span-6">
             {props.highschool ? (
               <span>
                 <svg
