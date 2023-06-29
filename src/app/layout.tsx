@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import { siteConfig } from "~/config/site";
 import { cn } from "~/lib/utils";
 import { ThemeProvider } from "~/components/theme-provider";
-
+import Navbar from "~/components/navbar";
 import "~/styles/globals.css";
 
 const fontSans = FontSans({
@@ -67,6 +67,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Navbar />
           {children}
         </ThemeProvider>
       </body>
