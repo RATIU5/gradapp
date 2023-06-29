@@ -1,10 +1,30 @@
+import { useMutation } from "@tanstack/react-query";
 import { PersonWithProgram } from "../../utils/types";
+import { setPersonPresent } from "~/utils/query-fns";
 
 interface Props {
   person: PersonWithProgram;
+  onUpdate: () => void;
 }
 
-export const PersonRow = ({ person }: Props) => {
+export const PersonRow = ({ person, onUpdate }: Props) => {
+  const checkInMutation = useMutation({
+    mutationFn: () => setPersonPresent(person.id, true),
+  });
+  const checkOutMutation = useMutation({
+    mutationFn: () => setPersonPresent(person.id, false),
+  });
+
+  const handleCheckIn = () => {
+    checkInMutation.mutate();
+    onUpdate();
+  };
+
+  const handleCheckOut = () => {
+    checkOutMutation.mutate();
+    onUpdate();
+  };
+
   return (
     <tr
       className={`${
@@ -26,6 +46,7 @@ export const PersonRow = ({ person }: Props) => {
       <td className="col-span-2">
         <input
           type="button"
+          onClick={person.present ? handleCheckOut : handleCheckIn}
           value={person.present ? "Check Out" : "Check In"}
           className={`bg-gray-100 text-gray-700 ${
             person.present

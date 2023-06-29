@@ -3,7 +3,7 @@ import { type NextPage } from "next";
 import { useState } from "react";
 import Layout from "~/components/layout";
 import QueryData from "~/components/layout/query-data";
-import { getAllPeopleWithPrograms, setPersonPresent } from "~/utils/query-fns";
+import { getAllPeopleWithPrograms } from "~/utils/query-fns";
 import { PersonWithProgram } from "~/utils/types";
 import { PersonRow } from "~/components/record/person-row";
 import SearchBar from "~/components/record/search-bar";
@@ -12,33 +12,22 @@ type Record = object;
 
 const Record: NextPage<Record> = () => {
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<number>(-1);
 
   // Queries and Mutations
   const peopleQuery = useQuery({
     queryKey: ["all-people-with-programs"],
     queryFn: getAllPeopleWithPrograms,
   });
-  const checkInMutation = useMutation({
-    mutationFn: () => {
-      return setPersonPresent(selected, true);
-    },
-    onSuccess: () => {
-      peopleQuery.refetch();
-      setSelected(-1);
-    },
-  });
-  const checkOutMutation = useMutation({
-    mutationFn: () => setPersonPresent(selected, false),
-    onSuccess: () => {
-      peopleQuery.refetch();
-      setSelected(-1);
-    },
-  });
 
   // Event Handlers
   const inputChangeHandler = (query: string) => {
     setQuery(query);
+  };
+
+  const onPresentUpdate = () => {
+    console.log("Present Updated");
+
+    peopleQuery.refetch();
   };
 
   return (
@@ -60,7 +49,11 @@ const Record: NextPage<Record> = () => {
                 </thead>
                 <tbody className="w-full">
                   {filterPeople(query, arr).map((person) => (
-                    <PersonRow key={person.id} person={person} />
+                    <PersonRow
+                      key={person.id}
+                      person={person}
+                      onUpdate={onPresentUpdate}
+                    />
                   ))}
                 </tbody>
               </table>
