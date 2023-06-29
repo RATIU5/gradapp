@@ -5,6 +5,7 @@ const config = {
   reactStrictMode: true,
   experimental: {
     appDir: true,
+    serverComponentsExternalPackages: ["@prisma/client"],
   },
 };
 
