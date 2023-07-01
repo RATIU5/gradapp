@@ -61,14 +61,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen bg-background font-sans text-gray-800 antialiased dark:bg-gray-900 dark:text-gray-100",
           fontSans.variable,
           fontHeading.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
-          <div className="mt-24">{children}</div>
+          <div className="pt-24">{children}</div>
         </ThemeProvider>
       </body>
     </html>
