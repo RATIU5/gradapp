@@ -68,7 +68,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
-          <div className="pt-24">{children}</div>
+          <div>{children}</div>
         </ThemeProvider>
       </body>
     </html>
