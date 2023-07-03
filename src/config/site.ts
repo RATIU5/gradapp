@@ -1,4 +1,4 @@
-import { SiteConfig } from "~/types"
+import { SiteConfig } from "~/types";
 
 export const siteConfig: SiteConfig = {
   name: "GradApp",
@@ -9,4 +9,4 @@ export const siteConfig: SiteConfig = {
   links: {
     github: "",
   },
-}
+};

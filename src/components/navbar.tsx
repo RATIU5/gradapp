@@ -1,15 +1,11 @@
-"use client";
-
-import { signIn } from "next-auth/react";
+import { getCurrentUser } from "~/lib/session";
 import { Icons } from "./icons";
 import { ModeToggle } from "./mode-toggle";
 
 type NavbarProps = {};
 
-const Navbar = (props: NavbarProps) => {
-  function handleSignIn() {
-    signIn();
-  }
+const Navbar = async (props: NavbarProps) => {
+  const user = await getCurrentUser();
 
   return (
     <div className="fixed top-4 w-full px-4">
@@ -28,12 +24,12 @@ const Navbar = (props: NavbarProps) => {
               </a>
             </li>
             <li className="mx-3">
-              <button
-                onClick={handleSignIn}
+              <a
+                href={!user ? "/api/auth/signin/google" : "/api/auth/signout"}
                 className="font-semibold text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
               >
-                Login
-              </button>
+                {!user ? "Login" : "Logout"}
+              </a>
             </li>
           </ul>
           <ModeToggle />

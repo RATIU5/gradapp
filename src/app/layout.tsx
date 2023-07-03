@@ -5,6 +5,7 @@ import { cn } from "~/lib/utils";
 import { ThemeProvider } from "~/components/theme-provider";
 import Navbar from "~/components/navbar";
 import "~/styles/globals.css";
+import { SessionProvider } from "next-auth/react";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -55,7 +56,11 @@ export const metadata = {
   manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({
+  Component,
+  children,
+  pageProps: { session, ...pageProps },
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -67,8 +72,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navbar />
-          <div>{children}</div>
+          <SessionProvider session={session}>
+            <Navbar />
+            <div>{children}</div>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>
