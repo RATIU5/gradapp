@@ -1,5 +1,6 @@
 "use client";
 
+import { Icons } from "@/components/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
@@ -115,8 +116,8 @@ const Page = (props: PageProps) => {
       <TableCaption>A list of all faculty and graduates.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">Plat.</TableHead>
-          <TableHead>HS</TableHead>
+          <TableHead className="w-[50px]">Plat.</TableHead>
+          <TableHead className="w-[50px]">HS</TableHead>
           <TableHead>Name</TableHead>
           <TableHead>Program</TableHead>
           <TableHead className="text-right">Actions</TableHead>
@@ -125,12 +126,18 @@ const Page = (props: PageProps) => {
       <TableBody>
         {data.map((person) => {
           return (
-            <TableRow>
-              <TableCell className="font-medium">1</TableCell>
-              <TableCell>0</TableCell>
-              <TableCell>Jeff Markus</TableCell>
+            <TableRow key={person.id}>
+              <TableCell className="font-medium">
+                {person.platinum ? <Icons.medal /> : null}
+              </TableCell>
+              <TableCell>
+                {person.highschool ? <Icons.award /> : null}
+              </TableCell>
+              <TableCell>{person.firstname + " " + person.lastname}</TableCell>
               <TableCell>Programming</TableCell>
-              <TableCell className="text-right">$250.00</TableCell>
+              <TableCell className="text-right">
+                <button>Check-in</button>
+              </TableCell>
             </TableRow>
           );
         })}

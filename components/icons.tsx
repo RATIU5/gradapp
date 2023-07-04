@@ -1,6 +1,7 @@
 import {
   AlertTriangle,
   ArrowRight,
+  Award,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -13,6 +14,7 @@ import {
   Laptop,
   Loader2,
   LucideProps,
+  Medal,
   Moon,
   MoreVertical,
   Pizza,
@@ -29,6 +31,7 @@ import {
 export type Icon = LucideIcon;
 
 export const Icons = {
+  award: Award,
   logo: GraduationCap,
   close: X,
   spinner: Loader2,
@@ -48,6 +51,7 @@ export const Icons = {
   help: HelpCircle,
   pizza: Pizza,
   sun: SunMedium,
+  medal: Medal,
   moon: Moon,
   laptop: Laptop,
   gitHub: ({ ...props }: LucideProps) => (
