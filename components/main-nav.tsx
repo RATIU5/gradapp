@@ -1,3 +1,5 @@
+import { ThemeToggle } from "./theme-toggle";
+
 type MainNavProps = {};
 
 const MainNav = (props: MainNavProps) => {
@@ -19,14 +21,16 @@ const MainNav = (props: MainNavProps) => {
           <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
           <path d="M6 12v5c3 3 9 3 12 0v-5" />
         </svg>
-        <ul className="flex justify-between">
-          <li className="mx-2 hover:text-neutral-50">
+        <ul className="flex justify-between items-center">
+          <li className="mx-2 dark:hover:text-neutral-50 text-neutral-500 hover:text-neutral-950">
             <a href="/">Attendees</a>
           </li>
-          <li className="mx-2 hover:text-neutral-50">
+          <li className="mx-2 dark:hover:text-neutral-50 text-neutral-500 hover:text-neutral-950">
             <a href="/login">Login</a>
           </li>
-          <li className="mx-2">Theme</li>
+          <li className="mx-2 dark:hover:text-neutral-50 text-neutral-500 hover:text-neutral-950">
+            <ThemeToggle />
+          </li>
         </ul>
       </div>
     </div>
