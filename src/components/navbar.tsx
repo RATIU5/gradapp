@@ -1,3 +1,5 @@
+"use client";
+
 import { getCurrentUser } from "~/lib/session";
 import { Icons } from "./icons";
 import { ModeToggle } from "./mode-toggle";
@@ -9,7 +11,7 @@ const Navbar = async (props: NavbarProps) => {
 
   return (
     <div className="fixed top-4 w-full px-4">
-      <div className="dark:bg-gray-800/25 mx-auto flex min-w-min max-w-4xl items-center justify-between rounded-full border border-solid border-gray-200 bg-gray-100/25 px-4 py-2 backdrop-blur-md first-letter:w-full dark:border-gray-800">
+      <div className="mx-auto flex min-w-min max-w-4xl items-center justify-between rounded-full border border-solid border-gray-200 bg-gray-100/25 px-4 py-2 backdrop-blur-md first-letter:w-full dark:border-gray-800 dark:bg-gray-800/25">
         <div>
           <Icons.logo size={48} className="text-gray-700 dark:text-gray-300" />
         </div>

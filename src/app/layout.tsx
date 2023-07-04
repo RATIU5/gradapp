@@ -5,7 +5,8 @@ import { cn } from "~/lib/utils";
 import { ThemeProvider } from "~/components/theme-provider";
 import Navbar from "~/components/navbar";
 import "~/styles/globals.css";
-import { SessionProvider } from "next-auth/react";
+import { Session } from "next-auth";
+import { headers } from "next/dist/client/components/headers";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -56,11 +57,25 @@ export const metadata = {
   manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
+async function getSession(cookie: string): Promise<Session> {
+  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/session`, {
+    headers: {
+      cookie,
+    },
+  });
+
+  const session = await response.json();
+
+  return Object.keys(session).length > 0 ? session : null;
+}
+
 export default async function RootLayout({
-  Component,
   children,
-  pageProps: { session, ...pageProps },
+}: {
+  children: React.ReactNode;
 }) {
+  const session = await getSession(headers().get("cookie") ?? "");
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -72,10 +87,8 @@ export default async function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <SessionProvider session={session}>
-            <Navbar />
-            <div>{children}</div>
-          </SessionProvider>
+          <Navbar />
+          {children}
         </ThemeProvider>
       </body>
     </html>
