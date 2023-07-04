@@ -7,7 +7,9 @@ type PageWrapperProps = {
 
 const PageWrapper = (props: PageWrapperProps) => {
   return (
-    <div className={cn("w-full pt-24", props.className)}>{props.children}</div>
+    <div className={cn("w-full pt-24 px-4 ", props.className)}>
+      {props.children}
+    </div>
   );
 };
 
