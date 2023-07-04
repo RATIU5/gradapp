@@ -1,7 +1,6 @@
 "use client";
 
 // Client-side only here instead of global layout
-import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
 
