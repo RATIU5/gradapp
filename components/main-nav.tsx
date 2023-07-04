@@ -5,7 +5,7 @@ type MainNavProps = {};
 const MainNav = (props: MainNavProps) => {
   return (
     <div className="w-full flex justify-center">
-      <div className="flex fixed w-full justify-between items-center max-w-3xl rounded-full bg-neutral-50 px-4 py-1 text-neutral-700 translate-y-4 dark:bg-neutral-800 dark:text-neutral-400 border-solid border border-neutral-200 dark:border-neutral-700">
+      <div className="flex fixed w-full justify-between items-center max-w-3xl rounded-full bg-neutral-50 px-4 py-1 text-neutral-600 translate-y-5 dark:bg-neutral-800 dark:text-neutral-400 border-solid border border-neutral-200 dark:border-neutral-700 backdrop-blur-md">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
