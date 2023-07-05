@@ -16,7 +16,7 @@ export async function setAttendeePresent(id: number, present: boolean) {
 }
 
 export async function getAttendeesPresent() {
-  const result = await fetch("/api/db/people/present");
+  const result = await fetch("/api/db/people/present-students");
   if (!result.ok) throw new Error("Could not fetch attendees");
   const { data } = await result.json();
   if (!data) throw new Error("No data found");

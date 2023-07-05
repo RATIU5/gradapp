@@ -3,9 +3,10 @@ import { NextResponse } from "next/server";
 
 export const GET = async (req: Request) => {
   const { data, error } = await supabase
-    .from("people")
-    .select(`*, programs ( name )`)
-    .is("present", true);
+    .from("programs")
+    .select(`name, people ( * )`)
+    .is("people.present", true)
+    .gt("people.persontype", 1);
   if (error) return NextResponse.json({ data: error }, { status: 500 });
   return NextResponse.json({ data }, { status: 200 });
 };

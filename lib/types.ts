@@ -15,3 +15,12 @@ export type PersonWithProgram = Person & {
     name: string;
   };
 };
+
+export type Program = {
+  id: number;
+  name: string;
+};
+
+export type ProgramWithPeople = Program & {
+  people: Person[];
+};
