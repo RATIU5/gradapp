@@ -1,14 +1,13 @@
 "use client";
 
 import AttendeesRow from "@/components/attendees-row";
+import { TableSkeleton } from "@/components/skeletons";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
   TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -65,61 +64,7 @@ const Page = (props: PageProps) => {
 
   function renderTableBody() {
     if (isLoading) {
-      return (
-        <TableBody>
-          <TableRow>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-            <TableCell className="font-medium">
-              <Skeleton className="h-4 w-full" />
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      );
+      return <TableSkeleton />;
     }
 
     if (isError) {
