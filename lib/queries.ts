@@ -5,3 +5,12 @@ export async function getAllAttendees() {
   if (!data) throw new Error("No data found");
   return data;
 }
+
+export async function setAttendeePresent(id: number, present: boolean) {
+  const result = await fetch(`/api/db/people/set-present/${id}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ present }),
+  });
+  if (!result.ok) throw new Error("Could not update attendee");
+}
