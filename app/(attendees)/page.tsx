@@ -1,7 +1,6 @@
 "use client";
 
-import { Icons } from "@/components/icons";
-import { Button } from "@/components/ui/button";
+import AttendeesRow from "@/components/attendees-row";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -14,8 +13,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAllAttendees, setAttendeePresent } from "@/lib/queries";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { getAllAttendees } from "@/lib/queries";
+import { PersonWithProgram } from "@/lib/types";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 type PageProps = {
@@ -24,18 +24,10 @@ type PageProps = {
 
 const Page = (props: PageProps) => {
   const [query, setQuery] = useState("");
-  const { isLoading, isError, data, error } = useQuery({
+  const { isLoading, isError, data, error } = useQuery<PersonWithProgram[]>({
     queryKey: ["attendees"],
     queryFn: getAllAttendees,
   });
-  const presentMutation = useMutation({
-    mutationFn: (params: { id: number; present: boolean }) =>
-      setAttendeePresent(params.id, params.present),
-  });
-
-  function handleCheckIn() {
-    console.log("check-in");
-  }
 
   function filterData() {
     if (isLoading || isError) {
@@ -58,23 +50,15 @@ const Page = (props: PageProps) => {
   }
 
   function renderTableCaption() {
-    if (isLoading) {
-      return <TableCaption className="mb-8">Loading...</TableCaption>;
-    }
-
-    if (isError) {
-      return (
-        <TableCaption className="mb-8">{(error as Error).message}</TableCaption>
-      );
-    }
-
-    if (filterData().length === 0) {
-      return <TableCaption className="mb-8">No results found.</TableCaption>;
-    }
-
     return (
       <TableCaption className="mb-8">
-        A list of all faculty and graduates.
+        {isLoading
+          ? "Loading..."
+          : isError
+          ? (error as Error).message
+          : filterData().length === 0
+          ? "No results found."
+          : "A list of all faculty and graduates."}
       </TableCaption>
     );
   }
@@ -144,33 +128,11 @@ const Page = (props: PageProps) => {
 
     return (
       <TableBody>
-        {filterData().map((person) => {
-          return (
-            <TableRow key={person.id}>
-              <TableCell className="font-medium">
-                {person.platinum ? <Icons.medal /> : null}
-              </TableCell>
-              <TableCell>
-                {person.highschool ? <Icons.award /> : null}
-              </TableCell>
-              <TableCell>{person.firstname + " " + person.lastname}</TableCell>
-              <TableCell>{person.programs.name}</TableCell>
-              <TableCell className="text-right">
-                <Button
-                  variant={person.present ? "outline" : "default"}
-                  onClick={() =>
-                    presentMutation.mutate({
-                      id: person.id,
-                      present: !person.present,
-                    })
-                  }
-                >
-                  {person.present ? "Check-out" : "Check-in"}
-                </Button>
-              </TableCell>
-            </TableRow>
-          );
-        })}
+        {filterData()
+          .sort((a, b) => a.lastname.localeCompare(b.lastname))
+          .map((person) => {
+            return <AttendeesRow key={person.id} person={person} />;
+          })}
       </TableBody>
     );
   }

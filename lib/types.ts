@@ -1,0 +1,17 @@
+export type Person = {
+  id: number;
+  firstname: string;
+  lastname: string;
+  programid: number;
+  email: string;
+  platinum: boolean;
+  highschool: boolean;
+  persontype: number;
+  present: boolean;
+};
+
+export type PersonWithProgram = Person & {
+  programs: {
+    name: string;
+  };
+};

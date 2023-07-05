@@ -8,7 +8,7 @@ export const POST = async (
   const body = await req.json();
   const { data, error } = await supabase
     .from("people")
-    .update({ present: body.id })
+    .update({ present: body.present })
     .eq("id", params.id)
     .select();
   if (error) return NextResponse.json({ data: error }, { status: 500 });
