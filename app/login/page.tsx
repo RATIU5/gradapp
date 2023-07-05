@@ -1,8 +1,4 @@
-type PageProps = {
-  children: React.ReactNode;
-};
-
-const Page = (props: PageProps) => {
+const Page = () => {
   return <div></div>;
 };
 

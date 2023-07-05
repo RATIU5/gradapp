@@ -5,10 +5,6 @@ import { getAttendeesPresent } from "@/lib/queries";
 import { ProgramWithPeople } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 
-type PageProps = {
-  children: React.ReactNode;
-};
-
 const Page = () => {
   const { isLoading, isError, data, error } = useQuery<ProgramWithPeople[]>({
     queryKey: ["attendees"],
