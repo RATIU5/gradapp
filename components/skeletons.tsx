@@ -58,3 +58,17 @@ export function TableSkeleton() {
     </TableBody>
   );
 }
+
+export function HereListSkeleton() {
+  return (
+    <div className="flex flex-col space-y-4">
+      <Skeleton className="h-4 w-1/2" />
+      <Skeleton className="h-4 w-1/4" />
+      <Skeleton className="h-4 w-1/2" />
+      <Skeleton className="h-4 w-1/4" />
+      <Skeleton className="h-4 w-1/2" />
+      <Skeleton className="h-4 w-1/4" />
+      <Skeleton className="h-4 w-1/2" />
+    </div>
+  );
+}
