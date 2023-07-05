@@ -40,21 +40,23 @@ const Page = () => {
   }
 
   return (
-    <ul>
-      {data
-        .sort((a, b) => a.name.localeCompare(b.name)) // sort by program name
-        .map(
-          (p) =>
-            p.people.length > 0 && ( // only show programs with people
-              <>
-                <li className="text-xl font-bold mb-1 mt-7 first:mt-0">
-                  {p.name}
-                </li>
-                <li>{renderPeople(p)}</li>
-              </>
-            )
-        )}
-    </ul>
+    <>
+      <ul>
+        {data
+          .sort((a, b) => a.name.localeCompare(b.name)) // sort by program name
+          .map(
+            (p) =>
+              p.people.length > 0 && ( // only show programs with people
+                <>
+                  <li className="text-xl font-bold mb-1 mt-7 first:mt-0">
+                    {p.name}
+                  </li>
+                  <li>{renderPeople(p)}</li>
+                </>
+              )
+          )}
+      </ul>
+    </>
   );
 };
 
