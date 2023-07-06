@@ -72,3 +72,13 @@ export function HereListSkeleton() {
     </div>
   );
 }
+
+export function LogoutSkeleton() {
+  return (
+    <div className="flex flex-row">
+      <Skeleton className="h-4 w-full bg-neutral-200 dark:bg-neutral-800" />
+      <Skeleton className="h-4 w-1/2 bg-neutral-200 dark:bg-neutral-800" />
+      <Skeleton className="h-4 w-full bg-neutral-200 dark:bg-neutral-800" />
+    </div>
+  );
+}

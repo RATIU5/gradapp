@@ -1,8 +1,11 @@
+import { getServerAuthSession } from "@/lib/auth";
 import { ThemeToggle } from "./theme-toggle";
 
 type MainNavProps = {};
 
-const MainNav = (props: MainNavProps) => {
+const MainNav = async (props: MainNavProps) => {
+  const session = await getServerAuthSession();
+
   return (
     <div className="w-full flex justify-center">
       <div className="flex fixed w-full justify-between items-center max-w-3xl rounded-full bg-neutral-100/50 px-4 py-1 text-neutral-600 translate-y-5 dark:bg-neutral-800/50 dark:text-neutral-400 border-solid border border-neutral-200 dark:border-neutral-700 backdrop-blur-md ">
@@ -26,7 +29,9 @@ const MainNav = (props: MainNavProps) => {
             <a href="/">Attendees</a>
           </li>
           <li className="mx-2 dark:hover:text-neutral-50 text-neutral-500 hover:text-neutral-950">
-            <a href="/login">Login</a>
+            <a href={session ? "/logout" : "/login"}>
+              {session ? "Logout" : "Login"}
+            </a>
           </li>
           <li className="mx-2 dark:hover:text-neutral-50 text-neutral-500 hover:text-neutral-950">
             <ThemeToggle />
