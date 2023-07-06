@@ -25,7 +25,7 @@ const Page = () => {
         {programs.people
           .sort((a, b) => a.lastname.localeCompare(b.lastname)) // sort by last name
           .map((p) => (
-            <li className="mb-1" key={p.id}>
+            <li className="mb-4" key={p.id}>
               {p.firstname + " " + p.lastname}{" "}
               {p.platinum && <span className="text-yellow-500">🌟</span>}
               {p.highschool && <span className="text-blue-500">🎓</span>}
@@ -44,10 +44,10 @@ const Page = () => {
             (p) =>
               p.people.length > 0 && ( // only show programs with people
                 <li key={p.id}>
-                  <h3 className="text-xl font-bold mb-1 mt-7 first:mt-0">
+                  <h3 className="text-xl font-bold mb-4 mt-7 first:mt-0">
                     {p.name}
                   </h3>
-                  <div>{renderPeople(p)}</div>
+                  <div className="mb-8">{renderPeople(p)}</div>
                 </li>
               )
           )}

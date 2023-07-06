@@ -62,13 +62,13 @@ export function TableSkeleton() {
 export function HereListSkeleton() {
   return (
     <div className="flex flex-col space-y-4">
-      <Skeleton className="h-4 w-1/2 bg-neutral-200" />
-      <Skeleton className="h-4 w-1/4 bg-neutral-200" />
-      <Skeleton className="h-4 w-1/2 bg-neutral-200" />
-      <Skeleton className="h-4 w-1/4 bg-neutral-200" />
-      <Skeleton className="h-4 w-1/2 bg-neutral-200" />
-      <Skeleton className="h-4 w-1/4 bg-neutral-200" />
-      <Skeleton className="h-4 w-1/2 bg-neutral-200" />
+      <Skeleton className="h-4 w-1/2 bg-neutral-200 dark:bg-neutral-800" />
+      <Skeleton className="h-4 w-1/4 bg-neutral-200 dark:bg-neutral-800" />
+      <Skeleton className="h-4 w-1/2 bg-neutral-200 dark:bg-neutral-800" />
+      <Skeleton className="h-4 w-1/4 bg-neutral-200 dark:bg-neutral-800" />
+      <Skeleton className="h-4 w-1/2 bg-neutral-200 dark:bg-neutral-800" />
+      <Skeleton className="h-4 w-1/4 bg-neutral-200 dark:bg-neutral-800" />
+      <Skeleton className="h-4 w-1/2 bg-neutral-200 dark:bg-neutral-800" />
     </div>
   );
 }
