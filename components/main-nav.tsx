@@ -28,6 +28,16 @@ const MainNav = async (props: MainNavProps) => {
           <li className="mx-2 dark:hover:text-neutral-50 text-neutral-500 hover:text-neutral-950">
             <a href="/">Attendees</a>
           </li>
+          {session && (
+            <>
+              <li className="mx-2 dark:hover:text-neutral-50 text-neutral-500 hover:text-neutral-950">
+                <a href="/people">People</a>
+              </li>
+              <li className="mx-2 dark:hover:text-neutral-50 text-neutral-500 hover:text-neutral-950">
+                <a href="/programs">Programs</a>
+              </li>
+            </>
+          )}
           <li className="mx-2 dark:hover:text-neutral-50 text-neutral-500 hover:text-neutral-950">
             <a href={session ? "/logout" : "/login"}>
               {session ? "Logout" : "Login"}
