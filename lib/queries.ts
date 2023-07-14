@@ -19,6 +19,14 @@ export async function getAttendeesPresent() {
   const result = await fetch("/api/db/people/present-students");
   if (!result.ok) throw new Error("Could not fetch attendees");
   const { data } = await result.json();
-  if (!data) throw new Error("No data found");
+  if (!data) throw new Error("No attendees found");
+  return data;
+}
+
+export async function getAllPrograms() {
+  const result = await fetch("/api/db/programs");
+  if (!result.ok) throw new Error("Could not fetch programs");
+  const { data } = await result.json();
+  if (!data) throw new Error("No programs found");
   return data;
 }

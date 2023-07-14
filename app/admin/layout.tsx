@@ -9,13 +9,15 @@ type LayoutProps = {
 const Layout = (props: LayoutProps) => {
   return (
     <PageWrapper className="flex justify-center">
-      <Tabs defaultValue="students" className="mt-10">
+      <Tabs
+        defaultValue="students"
+        className="mt-10 flex flex-col items-center"
+      >
         <TabsList className="mb-4">
           <TabsTrigger value="students">Students</TabsTrigger>
           <TabsTrigger value="faculty">Faculty</TabsTrigger>
           <TabsTrigger value="programs">Programs</TabsTrigger>
         </TabsList>
-
         {props.children}
       </Tabs>
     </PageWrapper>
