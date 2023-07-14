@@ -13,7 +13,7 @@ const Admin = () => {
           </div>
           <div className="flex justify-center flex-col items-center w-[20rem]">
             <h2>Import Students</h2>
-            <Button>Import Students</Button>
+            <div className="flex "></div>
           </div>
         </div>
       </TabsContent>
