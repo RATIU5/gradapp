@@ -33,7 +33,7 @@ const MainNav = async (props: MainNavProps) => {
                 <a href="/attendees">Attendees</a>
               </li>
               <li className="mx-2 dark:hover:text-neutral-50 text-neutral-500 hover:text-neutral-950">
-                <a href="/people">Admin</a>
+                <a href="/admin">Admin</a>
               </li>
             </>
           )}

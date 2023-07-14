@@ -1,3 +1,5 @@
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import PageWrapper from "@/components/page-wrapper";
 
 type LayoutProps = {
@@ -6,11 +8,16 @@ type LayoutProps = {
 
 const Layout = (props: LayoutProps) => {
   return (
-    <PageWrapper>
-      <h2 className="mt-12 text-4xl font-bold text-center">Admin Panel</h2>
-      <div className="my-8 max-w-xl mx-auto p-8 rounded-lg bg-neutral-100 dark:bg-neutral-900">
+    <PageWrapper className="flex justify-center">
+      <Tabs defaultValue="students" className="mt-10">
+        <TabsList className="mb-4">
+          <TabsTrigger value="students">Students</TabsTrigger>
+          <TabsTrigger value="faculty">Faculty</TabsTrigger>
+          <TabsTrigger value="programs">Programs</TabsTrigger>
+        </TabsList>
+
         {props.children}
-      </div>
+      </Tabs>
     </PageWrapper>
   );
 };
