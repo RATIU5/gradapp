@@ -1,6 +1,6 @@
 import AddPersonForm from "@/components/add-student-form";
-import { Button } from "@/components/ui/button";
 import { TabsContent } from "@/components/ui/tabs";
+import UploadStudents from "@/components/upload-students";
 
 const Admin = () => {
   return (
@@ -12,8 +12,10 @@ const Admin = () => {
             <AddPersonForm />
           </div>
           <div className="flex justify-center flex-col items-center w-[20rem]">
-            <h2>Import Students</h2>
-            <div className="flex "></div>
+            <div className="flex ">
+              <h2>Import Students</h2>
+              <UploadStudents />
+            </div>
           </div>
         </div>
       </TabsContent>

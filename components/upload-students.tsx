@@ -1,27 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Student } from "@/lib/types";
+import { addNewStudents } from "@/lib/queries";
 
 const UploadStudents = () => {
+  const queryClient = useQueryClient();
   const [file, setFile] = useState<File>();
+  const [data, setData] = useState<string>("");
+  const newStudentMutation = useMutation({
+    mutationFn: (peopleCSV: string) => {
+      return addNewStudents(peopleCSV);
+    },
+    onSuccess: async () => {
+      await queryClient.refetchQueries({ stale: true });
+    },
+  });
+
+  useEffect(() => {
+    if (!data || data === "") return;
+    newStudentMutation.mutate(data);
+  }, [data]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!file) return;
 
     try {
-      const data = new FormData();
-      data.set("file", file);
-
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: data,
-      });
-      // handle the error
-      if (!res.ok) throw new Error(await res.text());
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setData(e.target?.result as string);
+      };
+      reader.readAsText(file);
     } catch (e: any) {
-      // Handle errors here
       console.error(e);
     }
   };

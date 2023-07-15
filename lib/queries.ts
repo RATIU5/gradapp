@@ -1,3 +1,5 @@
+import { Student } from "./types";
+
 export async function getAllAttendees() {
   const result = await fetch("/api/db/people-with-programs");
   if (!result.ok) throw new Error("Could not fetch attendees");
@@ -29,4 +31,15 @@ export async function getAllPrograms() {
   const { data } = await result.json();
   if (!data) throw new Error("No programs found");
   return data;
+}
+
+export async function addNewStudents(peopleCSV: string) {
+  console.log(peopleCSV);
+
+  // const result = await fetch("/api/db/people", {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify(person),
+  // });
+  // if (!result.ok) throw new Error("Could not add student");
 }

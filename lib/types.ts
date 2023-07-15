@@ -24,3 +24,14 @@ export type Program = {
 export type ProgramWithPeople = Program & {
   people: Person[];
 };
+
+export type Student = {
+  firstname: string;
+  lastname: string;
+  programid: number;
+  email: string;
+  platinum: boolean;
+  highschool: boolean;
+  studentfaculty: boolean;
+  present: boolean;
+};
