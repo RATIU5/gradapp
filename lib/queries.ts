@@ -1,4 +1,6 @@
+import csv from "csv-parser";
 import { Student } from "./types";
+import parseCSV from "./csv-parser";
 
 export async function getAllAttendees() {
   const result = await fetch("/api/db/people-with-programs");
@@ -34,7 +36,7 @@ export async function getAllPrograms() {
 }
 
 export async function addNewStudents(peopleCSV: string) {
-  console.log(peopleCSV);
+  parseCSV(peopleCSV);
 
   // const result = await fetch("/api/db/people", {
   //   method: "POST",

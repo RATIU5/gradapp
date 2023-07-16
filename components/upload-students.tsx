@@ -8,8 +8,7 @@ import { addNewStudents } from "@/lib/queries";
 
 const UploadStudents = () => {
   const queryClient = useQueryClient();
-  const [file, setFile] = useState<File>();
-  const [data, setData] = useState<string>("");
+  const [file, setFile] = useState<File | undefined>(undefined);
   const newStudentMutation = useMutation({
     mutationFn: (peopleCSV: string) => {
       return addNewStudents(peopleCSV);
@@ -19,21 +18,24 @@ const UploadStudents = () => {
     },
   });
 
-  useEffect(() => {
-    if (!data || data === "") return;
-    newStudentMutation.mutate(data);
-  }, [data]);
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!file) return;
 
     try {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setData(e.target?.result as string);
-      };
-      reader.readAsText(file);
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const content = event.target?.result as string;
+          if (file.name.endsWith(".csv")) {
+            newStudentMutation.mutate(content);
+          } else {
+            throw new Error("Invalid file type; csv expected");
+          }
+        };
+        reader.readAsText(file);
+      } else {
+        throw new Error("No file selected");
+      }
     } catch (e: any) {
       console.error(e);
     }
@@ -46,7 +48,9 @@ const UploadStudents = () => {
         name="file"
         onChange={(e) => setFile(e.target.files?.[0])}
       />
-      <Button type="submit">Import Students</Button>
+      <Button type="submit" disabled={!file}>
+        Import Students
+      </Button>
     </form>
   );
 };
