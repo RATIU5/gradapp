@@ -1,6 +1,6 @@
 import csv from "csv-parser";
 import { Student } from "./types";
-import parseCSV from "./csv-parser";
+import { parseCSV$ } from "./csv-parser";
 
 export async function getAllAttendees() {
   const result = await fetch("/api/db/people-with-programs");
@@ -35,8 +35,12 @@ export async function getAllPrograms() {
   return data;
 }
 
-export async function addNewStudents(peopleCSV: string) {
-  parseCSV(peopleCSV);
+export async function addNewStudents$(peopleCSV: string) {
+  try {
+    parseCSV$(peopleCSV);
+  } catch (e) {
+    throw new Error((e as Error).message);
+  }
 
   // const result = await fetch("/api/db/people", {
   //   method: "POST",

@@ -35,3 +35,5 @@ export type Student = {
   studentfaculty: boolean;
   present: boolean;
 };
+
+export type StudentWithoutPresent = Omit<Student, "present">;
