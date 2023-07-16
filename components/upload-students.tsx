@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Student } from "@/lib/types";
 import { addNewStudents$ } from "@/lib/queries";
 
 const UploadStudents = () => {
