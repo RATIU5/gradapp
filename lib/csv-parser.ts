@@ -73,8 +73,14 @@ export function parseCSV$(strData: string) {
     const programId = parseInt(row[3]);
     const platinum = row[4].toLowerCase();
     const highSchool = row[5].toLowerCase();
-    // Row 7 has a '\r' at the end of it, so we need to slice it off
-    const studentFaculty = row[6].slice(0, row[6].length - 1).toLowerCase();
+    // Row 7 has a '\r' at the end of it, so we need to slice it off,
+    // but not for the last row
+    let studentFaculty;
+    if (i === rows.length - 1) {
+      studentFaculty = row[6].toLowerCase();
+    } else {
+      studentFaculty = row[6].slice(0, row[6].length - 1).toLowerCase();
+    }
 
     if (Number.isNaN(programId)) {
       throw new Error(
