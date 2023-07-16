@@ -112,4 +112,6 @@ export function parseCSV$(strData: string) {
 
     data.push(obj);
   }
+
+  return data;
 }

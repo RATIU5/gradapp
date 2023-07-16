@@ -3,7 +3,7 @@ import { Icons } from "./icons";
 import { Button } from "./ui/button";
 import { TableCell, TableRow } from "./ui/table";
 import { PersonWithProgram } from "@/lib/types";
-import { setAttendeePresent } from "@/lib/queries";
+import { setAttendeePresent$ } from "@/lib/queries";
 
 type AttendeesRowProps = {
   person: PersonWithProgram;
@@ -13,7 +13,7 @@ const AttendeesRow = ({ person }: AttendeesRowProps) => {
   const queryClient = useQueryClient();
   const presentMutation = useMutation({
     mutationFn: (params: { id: number; present: boolean }) =>
-      setAttendeePresent(params.id, params.present),
+      setAttendeePresent$(params.id, params.present),
     onSuccess: async () => {
       await queryClient.refetchQueries({ stale: true });
     },

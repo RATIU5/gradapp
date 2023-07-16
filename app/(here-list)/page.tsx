@@ -1,14 +1,14 @@
 "use client";
 
 import { HereListSkeleton } from "@/components/skeletons";
-import { getAttendeesPresent } from "@/lib/queries";
+import { getAttendeesPresent$ } from "@/lib/queries";
 import { ProgramWithPeople } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 
 const Page = () => {
   const { isLoading, isError, data, error } = useQuery<ProgramWithPeople[]>({
     queryKey: ["attendees"],
-    queryFn: getAttendeesPresent,
+    queryFn: getAttendeesPresent$,
   });
 
   if (isLoading) {

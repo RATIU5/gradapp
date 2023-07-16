@@ -1,8 +1,6 @@
-import csv from "csv-parser";
-import { Student } from "./types";
 import { parseCSV$ } from "./csv-parser";
 
-export async function getAllAttendees() {
+export async function getAllAttendees$() {
   const result = await fetch("/api/db/people-with-programs");
   if (!result.ok) throw new Error("Could not fetch attendees");
   const { data } = await result.json();
@@ -10,7 +8,7 @@ export async function getAllAttendees() {
   return data;
 }
 
-export async function setAttendeePresent(id: number, present: boolean) {
+export async function setAttendeePresent$(id: number, present: boolean) {
   const result = await fetch(`/api/db/people/set-present/${id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -19,7 +17,7 @@ export async function setAttendeePresent(id: number, present: boolean) {
   if (!result.ok) throw new Error("Could not update attendee");
 }
 
-export async function getAttendeesPresent() {
+export async function getAttendeesPresent$() {
   const result = await fetch("/api/db/people/present-students");
   if (!result.ok) throw new Error("Could not fetch attendees");
   const { data } = await result.json();
@@ -27,7 +25,7 @@ export async function getAttendeesPresent() {
   return data;
 }
 
-export async function getAllPrograms() {
+export async function getAllPrograms$() {
   const result = await fetch("/api/db/programs");
   if (!result.ok) throw new Error("Could not fetch programs");
   const { data } = await result.json();
@@ -36,16 +34,11 @@ export async function getAllPrograms() {
 }
 
 export async function addNewStudents$(peopleCSV: string) {
-  try {
-    parseCSV$(peopleCSV);
-  } catch (e) {
-    throw new Error((e as Error).message);
-  }
-
-  // const result = await fetch("/api/db/people", {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify(person),
-  // });
-  // if (!result.ok) throw new Error("Could not add student");
+  const students = parseCSV$(peopleCSV);
+  const result = await fetch("/api/db/people", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(students),
+  });
+  if (!result.ok) throw new Error("Could not add students");
 }

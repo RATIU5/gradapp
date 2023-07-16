@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAllAttendees } from "@/lib/queries";
+import { getAllAttendees$ } from "@/lib/queries";
 import { PersonWithProgram } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -21,7 +21,7 @@ const Page = () => {
   const [query, setQuery] = useState("");
   const { isLoading, isError, data, error } = useQuery<PersonWithProgram[]>({
     queryKey: ["attendees"],
-    queryFn: getAllAttendees,
+    queryFn: getAllAttendees$,
   });
 
   function filterData() {

@@ -25,12 +25,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { Program } from "@/lib/types";
-import { getAllPrograms } from "@/lib/queries";
+import { getAllPrograms$ } from "@/lib/queries";
 
 const AddPersonForm = () => {
   const { isLoading, isError, data, error } = useQuery<Program[]>({
     queryKey: ["attendees"],
-    queryFn: getAllPrograms,
+    queryFn: getAllPrograms$,
   });
   const form = useForm<z.infer<typeof addStudentSchema>>({
     resolver: zodResolver(addStudentSchema),
