@@ -27,10 +27,10 @@ export function parseCSV$(strData: string) {
       );
     }
 
-    const obj: Student = {} as Student;
-    for (let j = 0; j < headerCount; j++) {
-      (obj as any)[header] = row[j];
-    }
+    const obj = headers.reduce((student, header, index) => {
+      student[header] = row[index];
+      return student;
+    }, {} as Student);
     data.push(obj);
   }
 }
