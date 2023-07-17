@@ -1,4 +1,5 @@
 import MainNav from "@/components/main-nav";
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -23,6 +24,7 @@ export default function RootLayout({
           <QueryProvider>
             <MainNav />
             {children}
+            <Toaster />
           </QueryProvider>
         </ThemeProvider>
       </body>

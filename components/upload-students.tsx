@@ -5,17 +5,28 @@ import { Button } from "@/components/ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addNewStudents$ } from "@/lib/queries";
 import { Icons } from "./icons";
+import { useToast } from "@/components/ui/use-toast";
 
 const UploadStudents = () => {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const [file, setFile] = useState<File | undefined>(undefined);
   const newStudentMutation = useMutation({
     mutationFn: (peopleCSV: string) => addNewStudents$(peopleCSV),
     onError: (error: any) => {
       console.error(error);
+      toast({
+        title: "Error",
+        description: "There was an error adding the students",
+        variant: "destructive",
+      });
     },
     onSuccess: async () => {
       setFile(undefined);
+      toast({
+        title: "Success",
+        description: "Students added successfully",
+      });
       await queryClient.refetchQueries({ stale: true });
     },
   });

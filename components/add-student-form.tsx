@@ -26,9 +26,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Program, StudentWithoutPresent } from "@/lib/types";
 import { addNewStudent$, getAllPrograms$ } from "@/lib/queries";
 import { Icons } from "./icons";
+import { useToast } from "@/components/ui/use-toast";
 
 const AddPersonForm = () => {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const { isLoading, isError, data, error } = useQuery<Program[]>({
     queryKey: ["attendees"],
     queryFn: getAllPrograms$,
@@ -37,8 +39,17 @@ const AddPersonForm = () => {
     mutationFn: (student: StudentWithoutPresent) => addNewStudent$(student),
     onError: (error: any) => {
       console.error(error);
+      toast({
+        title: "Error",
+        description: "There was an error adding the student",
+        variant: "destructive",
+      });
     },
     onSuccess: async () => {
+      toast({
+        title: "Success",
+        description: "Student added successfully",
+      });
       await queryClient.refetchQueries({ stale: true });
     },
   });
