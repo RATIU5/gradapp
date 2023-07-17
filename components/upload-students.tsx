@@ -38,11 +38,20 @@ const UploadStudents = () => {
       if (file) {
         const reader = new FileReader();
         reader.onload = (event) => {
-          const content = event.target?.result as string;
-          if (file.name.endsWith(".csv")) {
-            newStudentMutation.mutate(content);
-          } else {
-            throw new Error("Invalid file type; csv expected");
+          try {
+            const content = event.target?.result as string;
+            if (file.name.endsWith(".csv")) {
+              newStudentMutation.mutate(content);
+            } else {
+              throw new Error("Invalid file type; csv expected");
+            }
+          } catch (err) {
+            toast({
+              title: "Error",
+              description: (err as Error).message,
+              variant: "destructive",
+            });
+            console.error(err);
           }
         };
         reader.readAsText(file);
@@ -50,7 +59,12 @@ const UploadStudents = () => {
         throw new Error("No file selected");
       }
     } catch (e: any) {
-      console.error(e);
+      toast({
+        title: "Error",
+        description: e.message,
+        variant: "destructive",
+      });
+      console.error("huh");
     }
   };
 
@@ -64,6 +78,7 @@ const UploadStudents = () => {
           className="w-full h-full opacity-0 cursor-pointer absolute bg-red-300"
           type="file"
           id="file"
+          onChange={(e) => setFile(e.target.files?.[0])}
         />
 
         <p className="mt-1">
