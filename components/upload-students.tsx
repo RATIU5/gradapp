@@ -60,7 +60,11 @@ const UploadStudents = () => {
           <span className="text-neutral-500 underline">Browse</span>
         </p>
       </div>
-      <Button type="submit" disabled={!file || newStudentMutation.isLoading}>
+      <Button
+        type="submit"
+        className="mt-4"
+        disabled={!file || newStudentMutation.isLoading}
+      >
         {newStudentMutation.isLoading ? (
           <Icons.spinner className="animate-spin" />
         ) : (

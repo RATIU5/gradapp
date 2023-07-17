@@ -1,7 +1,6 @@
 "use client";
 
 import { Checkbox } from "@/components/ui/checkbox";
-
 import { addStudentSchema } from "@/lib/form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -23,14 +22,25 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useQuery } from "@tanstack/react-query";
-import { Program } from "@/lib/types";
-import { getAllPrograms$ } from "@/lib/queries";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Program, StudentWithoutPresent } from "@/lib/types";
+import { addNewStudent$, getAllPrograms$ } from "@/lib/queries";
+import { Icons } from "./icons";
 
 const AddPersonForm = () => {
+  const queryClient = useQueryClient();
   const { isLoading, isError, data, error } = useQuery<Program[]>({
     queryKey: ["attendees"],
     queryFn: getAllPrograms$,
+  });
+  const newStudentMutation = useMutation({
+    mutationFn: (student: StudentWithoutPresent) => addNewStudent$(student),
+    onError: (error: any) => {
+      console.error(error);
+    },
+    onSuccess: async () => {
+      await queryClient.refetchQueries({ stale: true });
+    },
   });
   const form = useForm<z.infer<typeof addStudentSchema>>({
     resolver: zodResolver(addStudentSchema),
@@ -42,12 +52,20 @@ const AddPersonForm = () => {
       studentfaculty: false,
       platinum: false,
       highschool: false,
-      present: false,
     },
   });
 
   function submitHandler(values: z.infer<typeof addStudentSchema>) {
-    console.log(values);
+    const student = {
+      firstname: values.firstname,
+      lastname: values.lastname,
+      email: values.email,
+      programid: values.programid,
+      studentfaculty: values.studentfaculty,
+      platinum: values.platinum,
+      highschool: values.highschool,
+    };
+    newStudentMutation.mutate(student);
   }
 
   return (
@@ -182,8 +200,16 @@ const AddPersonForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-[20rem]">
-          Add Student
+        <Button
+          type="submit"
+          className="w-[20rem]"
+          disabled={newStudentMutation.isLoading}
+        >
+          {newStudentMutation.isLoading ? (
+            <Icons.spinner className="animate-spin" />
+          ) : (
+            "Add Student"
+          )}
         </Button>
       </form>
     </Form>

@@ -24,5 +24,4 @@ export const addStudentSchema = z.object({
   platinum: z.boolean(),
   highschool: z.boolean(),
   studentfaculty: z.boolean(), // check to make sure the person type exists
-  present: z.boolean(),
 });

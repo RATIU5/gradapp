@@ -1,4 +1,5 @@
 import { parseCSV$ } from "./csv-parser";
+import { Student, StudentWithoutPresent } from "./types";
 
 export async function getAllAttendees$() {
   const result = await fetch("/api/db/people-with-programs");
@@ -31,6 +32,15 @@ export async function getAllPrograms$() {
   const { data } = await result.json();
   if (!data) throw new Error("No programs found");
   return data;
+}
+
+export async function addNewStudent$(student: StudentWithoutPresent) {
+  const result = await fetch("/api/db/people", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify([student]),
+  });
+  if (!result.ok) throw new Error("Could not add student");
 }
 
 export async function addNewStudents$(peopleCSV: string) {
