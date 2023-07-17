@@ -45,12 +45,20 @@ const UploadStudents = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col items-stretch">
-      <div className="w-full border-2 border-neutral-200 border-dashed rounded-lg p-4">
+      <div
+        className="w-full h-64 relative bg-neutral-100 border-2 border-dashed border-neutral-400 rounded-md flex flex-col items-center justify-center cursor-pointer text-neutral-400"
+        id="dropzone"
+      >
         <input
+          className="w-full h-full opacity-0 cursor-pointer absolute bg-red-300"
           type="file"
-          name="file"
-          onChange={(e) => setFile(e.target.files?.[0])}
+          id="file"
         />
+
+        <p className="mt-1">
+          Drag your file here or{" "}
+          <span className="text-neutral-500 underline">Browse</span>
+        </p>
       </div>
       <Button type="submit" disabled={!file || newStudentMutation.isLoading}>
         {newStudentMutation.isLoading ? (

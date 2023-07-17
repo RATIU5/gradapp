@@ -5,18 +5,18 @@ import UploadStudents from "@/components/upload-students";
 const Admin = () => {
   return (
     <>
-      <TabsContent value="students">
-        <div className="flex justify-center flex-wrap items-stretch">
-          <div className="w-[20rem]">
-            <h2>Add Student</h2>
-            <AddPersonForm />
-          </div>
-          <div className="flex justify-center flex-col items-center w-[20rem]">
-            <div className="flex ">
-              <h2>Import Students</h2>
-              <UploadStudents />
-            </div>
-          </div>
+      <TabsContent
+        value="students"
+        className="flex justify-around flex-wrap items-center w-full max-w-5xl flex-col md:flex-row"
+      >
+        <div className="w-[20rem]">
+          <AddPersonForm />
+        </div>
+        <div>
+          <p>or</p>
+        </div>
+        <div className="w-[20rem]">
+          <UploadStudents />
         </div>
       </TabsContent>
       <TabsContent value="faculty">

@@ -11,7 +11,7 @@ const Layout = (props: LayoutProps) => {
     <PageWrapper className="flex justify-center">
       <Tabs
         defaultValue="students"
-        className="mt-10 flex flex-col items-center"
+        className="mt-10 flex flex-col items-center w-full"
       >
         <TabsList className="mb-4">
           <TabsTrigger value="students">Students</TabsTrigger>
