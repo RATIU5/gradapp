@@ -12,8 +12,8 @@ export const POST = async (req: Request) => {
       email: person.email,
       platinum: person.platinum,
       highschool: person.highschool,
-      persontype: person.studentfaculty ? 3 : 2,
-      present: false,
+      persontype: person.persontype,
+      present: person.present,
     };
   });
 

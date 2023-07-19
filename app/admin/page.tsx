@@ -1,4 +1,5 @@
-import AddPersonForm from "@/components/add-student-form";
+import AddFacultyForm from "@/components/add-faculty-form";
+import AddStudentForm from "@/components/add-student-form";
 import { TabsContent } from "@/components/ui/tabs";
 import UploadStudents from "@/components/upload-students";
 
@@ -8,7 +9,7 @@ const Admin = () => {
       <TabsContent value="students" className="w-full">
         <div className="flex mx-auto justify-around flex-wrap items-center w-full max-w-5xl flex-col md:flex-row mt-0">
           <div className="w-[20rem]">
-            <AddPersonForm />
+            <AddStudentForm />
           </div>
           <div>
             <p>or</p>
@@ -26,22 +27,16 @@ const Admin = () => {
           <div>
             <p>or</p>
           </div>
-          <div className="w-[20rem]">
-            <UploadFaculty />
-          </div>
+          <div className="w-[20rem]">{/* <UploadFaculty /> */}</div>
         </div>
       </TabsContent>
       <TabsContent value="programs" className="w-full">
         <div className="flex mx-auto justify-around flex-wrap items-center w-full max-w-5xl flex-col md:flex-row mt-0">
-          <div className="w-[20rem]">
-            <AddProgramForm />
-          </div>
+          <div className="w-[20rem]">{/* <AddProgramForm /> */}</div>
           <div>
             <p>or</p>
           </div>
-          <div className="w-[20rem]">
-            <UploadPrograms />
-          </div>
+          <div className="w-[20rem]">{/* <UploadPrograms /> */}</div>
         </div>
       </TabsContent>
     </>

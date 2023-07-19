@@ -37,3 +37,13 @@ export type Student = {
 };
 
 export type StudentWithoutPresent = Omit<Student, "present">;
+
+export type Faculty = Omit<
+  Student,
+  "highschool" | "studentfaculty" | "platinum"
+>;
+
+export type FacultyWithoutPresent = Omit<
+  Student,
+  "highschool" | "studentfaculty" | "platinum" | "present"
+>;

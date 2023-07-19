@@ -1,7 +1,6 @@
 "use client";
 
-import { Checkbox } from "@/components/ui/checkbox";
-import { addStudentSchema } from "@/lib/form-schemas";
+import { addFacultySchema } from "@/lib/form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -23,12 +22,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Program, StudentWithoutPresent } from "@/lib/types";
-import { addNewStudent$, getAllPrograms$ } from "@/lib/queries";
+import { FacultyWithoutPresent, Program } from "@/lib/types";
+import { addNewFaculty$, getAllPrograms$ } from "@/lib/queries";
 import { Icons } from "./icons";
 import { useToast } from "@/components/ui/use-toast";
 
-const AddStudentForm = () => {
+const AddFacultyForm = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
   const { isLoading, isError, data, error } = useQuery<Program[]>({
@@ -36,7 +35,7 @@ const AddStudentForm = () => {
     queryFn: getAllPrograms$,
   });
   const newStudentMutation = useMutation({
-    mutationFn: (student: StudentWithoutPresent) => addNewStudent$(student),
+    mutationFn: (faculty: FacultyWithoutPresent) => addNewFaculty$(faculty),
     onError: (error: any) => {
       console.error(error);
       toast({
@@ -53,30 +52,24 @@ const AddStudentForm = () => {
       await queryClient.refetchQueries({ stale: true });
     },
   });
-  const form = useForm<z.infer<typeof addStudentSchema>>({
-    resolver: zodResolver(addStudentSchema),
+  const form = useForm<z.infer<typeof addFacultySchema>>({
+    resolver: zodResolver(addFacultySchema),
     defaultValues: {
       firstname: "",
       lastname: "",
       email: "",
       programid: 1,
-      studentfaculty: false,
-      platinum: false,
-      highschool: false,
     },
   });
 
-  function submitHandler(values: z.infer<typeof addStudentSchema>) {
-    const student = {
+  function submitHandler(values: z.infer<typeof addFacultySchema>) {
+    const faculty = {
       firstname: values.firstname,
       lastname: values.lastname,
       email: values.email,
       programid: values.programid,
-      studentfaculty: values.studentfaculty,
-      platinum: values.platinum,
-      highschool: values.highschool,
     };
-    newStudentMutation.mutate(student);
+    newStudentMutation.mutate(faculty);
   }
 
   return (
@@ -154,63 +147,6 @@ const AddStudentForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="platinum"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-center space-x-3 space-y-0 w-[20rem]">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={(checked) => {
-                    return checked
-                      ? field.onChange(true)
-                      : field.onChange(false);
-                  }}
-                />
-              </FormControl>
-              <FormLabel className="font-normal">Platinum</FormLabel>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="highschool"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-center space-x-3 space-y-0 w-[20rem]">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={(checked) => {
-                    return checked
-                      ? field.onChange(true)
-                      : field.onChange(false);
-                  }}
-                />
-              </FormControl>
-              <FormLabel className="font-normal">Highschool</FormLabel>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="studentfaculty"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-center space-x-3 space-y-0 w-[20rem]">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={(checked) => {
-                    return checked
-                      ? field.onChange(true)
-                      : field.onChange(false);
-                  }}
-                />
-              </FormControl>
-              <FormLabel className="font-normal">Faculty</FormLabel>
-            </FormItem>
-          )}
-        />
         <Button
           type="submit"
           className="w-[20rem]"
@@ -227,4 +163,4 @@ const AddStudentForm = () => {
   );
 };
 
-export default AddStudentForm;
+export default AddFacultyForm;
