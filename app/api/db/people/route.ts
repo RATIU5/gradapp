@@ -1,10 +1,10 @@
 import supabase from "@/lib/db";
-import { Student } from "@/lib/types";
+import { PersonWithoutId } from "@/lib/types";
 import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
-  const body = (await req.json()) as Student[];
-  const formattedObjects = body.map((person: Student) => {
+  const body = (await req.json()) as PersonWithoutId[];
+  const formattedObjects = body.map((person: PersonWithoutId) => {
     return {
       firstname: person.firstname,
       lastname: person.lastname,
