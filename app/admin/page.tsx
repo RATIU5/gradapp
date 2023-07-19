@@ -5,25 +5,44 @@ import UploadStudents from "@/components/upload-students";
 const Admin = () => {
   return (
     <>
-      <TabsContent
-        value="students"
-        className="flex justify-around flex-wrap items-center w-full max-w-5xl flex-col md:flex-row"
-      >
-        <div className="w-[20rem]">
-          <AddPersonForm />
-        </div>
-        <div>
-          <p>or</p>
-        </div>
-        <div className="w-[20rem]">
-          <UploadStudents />
+      <TabsContent value="students" className="w-full">
+        <div className="flex mx-auto justify-around flex-wrap items-center w-full max-w-5xl flex-col md:flex-row mt-0">
+          <div className="w-[20rem]">
+            <AddPersonForm />
+          </div>
+          <div>
+            <p>or</p>
+          </div>
+          <div className="w-[20rem]">
+            <UploadStudents />
+          </div>
         </div>
       </TabsContent>
-      <TabsContent value="faculty">
-        <h1>Faculty</h1>
+      <TabsContent value="faculty" className="w-full">
+        <div className="flex mx-auto justify-around flex-wrap items-center w-full max-w-5xl flex-col md:flex-row mt-0">
+          <div className="w-[20rem]">
+            <AddFacultyForm />
+          </div>
+          <div>
+            <p>or</p>
+          </div>
+          <div className="w-[20rem]">
+            <UploadFaculty />
+          </div>
+        </div>
       </TabsContent>
-      <TabsContent value="programs">
-        <h1>Programs</h1>
+      <TabsContent value="programs" className="w-full">
+        <div className="flex mx-auto justify-around flex-wrap items-center w-full max-w-5xl flex-col md:flex-row mt-0">
+          <div className="w-[20rem]">
+            <AddProgramForm />
+          </div>
+          <div>
+            <p>or</p>
+          </div>
+          <div className="w-[20rem]">
+            <UploadPrograms />
+          </div>
+        </div>
       </TabsContent>
     </>
   );
