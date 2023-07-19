@@ -35,29 +35,49 @@ export async function getAllPrograms$() {
 }
 
 export async function addNewStudent$(student: StudentWithoutPresent) {
+  const { studentfaculty, ...rest } = student;
+  const person = {
+    ...rest,
+    persontype: studentfaculty ? 3 : 2,
+    present: false,
+  };
   const result = await fetch("/api/db/people", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify([student]),
+    body: JSON.stringify([person]),
   });
   if (!result.ok) throw new Error("Could not add student");
 }
 
 export async function addNewStudents$(peopleCSV: string) {
   const students = parseCSV$(peopleCSV);
+  const people = students.map(({ studentfaculty, ...rest }) => {
+    return {
+      ...rest,
+      persontype: studentfaculty ? 3 : 2,
+      present: false,
+    };
+  });
   const result = await fetch("/api/db/people", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(students),
+    body: JSON.stringify(people),
   });
   if (!result.ok) throw new Error("Could not add students");
 }
 
 export async function addNewFaculty$(faculty: FacultyWithoutPresent) {
+  const person = {
+    ...faculty,
+    persontype: 1,
+    present: false,
+    highschool: false,
+    platinum: false,
+  };
   const result = await fetch("/api/db/people", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify([faculty]),
+    body: JSON.stringify([person]),
   });
   if (!result.ok) throw new Error("Could not add faculty");
 }

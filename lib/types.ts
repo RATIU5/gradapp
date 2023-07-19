@@ -10,6 +10,8 @@ export type Person = {
   present: boolean;
 };
 
+export type PersonWithoutId = Omit<Person, "id">;
+
 export type PersonWithProgram = Person & {
   programs: {
     name: string;
