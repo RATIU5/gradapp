@@ -142,3 +142,20 @@ export async function addNewProgram$(program: ProgramWithoutId) {
   });
   if (!result.ok) throw new Error("Could not add program");
 }
+
+export async function addNewProgramCSV$(peopleCSV: string) {
+  try {
+    const programs = parseCSV$(peopleCSV, {
+      headerNames: ["name"],
+      columnTypes: [z.string()],
+    });
+    const result = await fetch("/api/db/program", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(programs),
+    });
+    if (!result.ok) throw new Error("Could not add programs");
+  } catch (e) {
+    throw new Error((e as Error).message);
+  }
+}

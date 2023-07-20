@@ -3,6 +3,7 @@ import AddProgramForm from "@/components/add-program-form";
 import AddStudentForm from "@/components/add-student-form";
 import { TabsContent } from "@/components/ui/tabs";
 import UploadFaculty from "@/components/upload-faculty";
+import UploadPrograms from "@/components/upload-programs";
 import UploadStudents from "@/components/upload-students";
 import { getServerAuthSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -48,7 +49,9 @@ const Admin = async () => {
           <div>
             <p>or</p>
           </div>
-          <div className="w-[20rem]">{/* <UploadPrograms /> */}</div>
+          <div className="w-[20rem]">
+            <UploadPrograms />
+          </div>
         </div>
       </TabsContent>
     </>
