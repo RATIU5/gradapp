@@ -12,15 +12,15 @@ export const authOptions: AuthOptions = {
     }),
   ],
 
-  callbacks: {
-    async signIn({ account, profile }) {
-      if (!account || !profile) return false;
-      if (account.provider === "google") {
-        return profile.email?.endsWith("@btech.edu") || false;
-      }
-      return false;
-    },
-  },
+  // callbacks: {
+  //   async signIn({ account, profile }) {
+  //     if (!account || !profile) return false;
+  //     if (account.provider === "google") {
+  //       return profile.email?.endsWith("@btech.edu") || false;
+  //     }
+  //     return false;
+  //   },
+  // },
 };
 
 export const getServerAuthSession = () => {
