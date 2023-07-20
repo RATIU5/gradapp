@@ -2,9 +2,7 @@ import { z } from "zod";
 import { parseCSV$ } from "./csv-parser";
 import {
   FacultyWithoutPresent,
-  Program,
   ProgramWithoutId,
-  Student,
   StudentWithoutPresent,
 } from "./types";
 

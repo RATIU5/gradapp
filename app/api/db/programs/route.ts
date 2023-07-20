@@ -6,3 +6,5 @@ export const GET = async () => {
   if (error) return NextResponse.json({ data: error }, { status: 500 });
   return NextResponse.json({ data }, { status: 200 });
 };
+
+export const fetchCache = "force-no-store";
