@@ -50,7 +50,7 @@ export async function addNewStudent$(student: StudentWithoutPresent) {
   if (!result.ok) throw new Error("Could not add student");
 }
 
-export async function addNewStudents$(peopleCSV: string) {
+export async function addNewStudentCSV$(peopleCSV: string) {
   const students = parseCSV$(peopleCSV, {
     headerNames: [
       "firstname",
@@ -100,4 +100,30 @@ export async function addNewFaculty$(faculty: FacultyWithoutPresent) {
     body: JSON.stringify([person]),
   });
   if (!result.ok) throw new Error("Could not add faculty");
+}
+
+export async function addNewFacultyCSV$(peopleCSV: string) {
+  try {
+    const faculty = parseCSV$(peopleCSV, {
+      headerNames: ["firstname", "lastname", "email", "programid"],
+      columnTypes: [z.string(), z.string(), z.string(), z.number()],
+    });
+    const people = faculty.map((person) => {
+      return {
+        ...person,
+        persontype: 1,
+        present: false,
+        highschool: false,
+        platinum: false,
+      };
+    });
+    const result = await fetch("/api/db/people", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(people),
+    });
+    if (!result.ok) throw new Error("Could not add faculty");
+  } catch (e) {
+    throw new Error((e as Error).message);
+  }
 }

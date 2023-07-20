@@ -3,21 +3,20 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addNewStudentCSV$ } from "@/lib/queries";
+import { addNewFacultyCSV$ } from "@/lib/queries";
 import { Icons } from "./icons";
 import { useToast } from "@/components/ui/use-toast";
 
-const UploadStudents = () => {
+const UploadFaculty = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
   const [file, setFile] = useState<File | undefined>(undefined);
   const newStudentMutation = useMutation({
-    mutationFn: (peopleCSV: string) => addNewStudentCSV$(peopleCSV),
+    mutationFn: (peopleCSV: string) => addNewFacultyCSV$(peopleCSV),
     onError: (error: any) => {
-      console.error(error);
       toast({
         title: "Error",
-        description: "There was an error adding the students",
+        description: error.message,
         variant: "destructive",
       });
     },
@@ -25,7 +24,7 @@ const UploadStudents = () => {
       setFile(undefined);
       toast({
         title: "Success",
-        description: "Students added successfully",
+        description: "Faculty added successfully",
       });
       await queryClient.refetchQueries({ stale: true });
     },
@@ -94,11 +93,11 @@ const UploadStudents = () => {
         {newStudentMutation.isLoading ? (
           <Icons.spinner className="animate-spin" />
         ) : (
-          "Import Students"
+          "Import Faculty"
         )}
       </Button>
     </form>
   );
 };
 
-export default UploadStudents;
+export default UploadFaculty;

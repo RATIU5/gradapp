@@ -1,9 +1,16 @@
 import AddFacultyForm from "@/components/add-faculty-form";
 import AddStudentForm from "@/components/add-student-form";
 import { TabsContent } from "@/components/ui/tabs";
+import UploadFaculty from "@/components/upload-faculty";
 import UploadStudents from "@/components/upload-students";
+import { getServerAuthSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-const Admin = () => {
+const Admin = async () => {
+  const session = await getServerAuthSession();
+  if (!session) {
+    redirect("/");
+  }
   return (
     <>
       <TabsContent value="students" className="w-full">
@@ -27,7 +34,9 @@ const Admin = () => {
           <div>
             <p>or</p>
           </div>
-          <div className="w-[20rem]">{/* <UploadFaculty /> */}</div>
+          <div className="w-[20rem]">
+            <UploadFaculty />
+          </div>
         </div>
       </TabsContent>
       <TabsContent value="programs" className="w-full">
