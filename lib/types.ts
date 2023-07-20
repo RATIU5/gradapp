@@ -23,6 +23,8 @@ export type Program = {
   name: string;
 };
 
+export type ProgramWithoutId = Omit<Program, "id">;
+
 export type ProgramWithPeople = Program & {
   people: Person[];
 };

@@ -48,3 +48,14 @@ export const addFacultySchema = z.object({
   }),
   programid: z.number().positive(),
 });
+
+export const addProgramSchema = z.object({
+  name: z
+    .string()
+    .min(2, {
+      message: "Program name must be at least 2 characters.",
+    })
+    .max(50, {
+      message: "Program name must be less than 50 characters.",
+    }),
+});

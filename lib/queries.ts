@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { parseCSV$ } from "./csv-parser";
-import { FacultyWithoutPresent, Student, StudentWithoutPresent } from "./types";
+import {
+  FacultyWithoutPresent,
+  Program,
+  ProgramWithoutId,
+  Student,
+  StudentWithoutPresent,
+} from "./types";
 
 export async function getAllAttendees$() {
   const result = await fetch("/api/db/people-with-programs");
@@ -126,4 +132,13 @@ export async function addNewFacultyCSV$(peopleCSV: string) {
   } catch (e) {
     throw new Error((e as Error).message);
   }
+}
+
+export async function addNewProgram$(program: ProgramWithoutId) {
+  const result = await fetch("/api/db/program", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify([program]),
+  });
+  if (!result.ok) throw new Error("Could not add program");
 }

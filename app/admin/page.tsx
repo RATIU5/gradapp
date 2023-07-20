@@ -1,4 +1,5 @@
 import AddFacultyForm from "@/components/add-faculty-form";
+import AddProgramForm from "@/components/add-program-form";
 import AddStudentForm from "@/components/add-student-form";
 import { TabsContent } from "@/components/ui/tabs";
 import UploadFaculty from "@/components/upload-faculty";
@@ -41,7 +42,9 @@ const Admin = async () => {
       </TabsContent>
       <TabsContent value="programs" className="w-full">
         <div className="flex mx-auto justify-around flex-wrap items-center w-full max-w-5xl flex-col md:flex-row mt-0">
-          <div className="w-[20rem]">{/* <AddProgramForm /> */}</div>
+          <div className="w-[20rem]">
+            <AddProgramForm />
+          </div>
           <div>
             <p>or</p>
           </div>
