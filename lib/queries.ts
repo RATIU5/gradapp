@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { parseCSV$ } from "./csv-parser";
 import { FacultyWithoutPresent, Student, StudentWithoutPresent } from "./types";
 
@@ -50,7 +51,26 @@ export async function addNewStudent$(student: StudentWithoutPresent) {
 }
 
 export async function addNewStudents$(peopleCSV: string) {
-  const students = parseCSV$(peopleCSV);
+  const students = parseCSV$(peopleCSV, {
+    headerNames: [
+      "firstname",
+      "lastname",
+      "email",
+      "programid",
+      "platinum",
+      "highschool",
+      "studentfaculty",
+    ],
+    columnTypes: [
+      z.string(),
+      z.string(),
+      z.string(),
+      z.number(),
+      z.boolean(),
+      z.boolean(),
+      z.boolean(),
+    ],
+  });
   const people = students.map(({ studentfaculty, ...rest }) => {
     return {
       ...rest,

@@ -155,7 +155,7 @@ const AddFacultyForm = () => {
           {newStudentMutation.isLoading ? (
             <Icons.spinner className="animate-spin" />
           ) : (
-            "Add Student"
+            "Add Faculty"
           )}
         </Button>
       </form>
