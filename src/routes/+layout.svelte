@@ -1,9 +1,12 @@
 <script>
 	import '../app.css';
+	import Header from '$lib/components/header.svelte';
 </script>
 
 <div class="flex min-h-screen flex-col overflow-hidden">
-	<nav>Header</nav>
+	<header>
+		<Header />
+	</header>
 	<main class="flex-grow">
 		<slot />
 	</main>
