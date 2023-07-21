@@ -15,7 +15,8 @@ const config = {
 			runtime: 'nodejs18.x',
 			regions: ['sfo1']
 		})
-	}
+	},
+	preprocess: vitePreprocess()
 };
 
 export default config;
