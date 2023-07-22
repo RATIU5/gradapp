@@ -1,5 +1,7 @@
 import { vitePreprocess } from '@sveltejs/kit/vite';
 import adapter from '@sveltejs/adapter-vercel';
+import { preprocessMeltUI } from '@melt-ui/pp';
+import sequence from 'svelte-sequential-preprocessor';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -16,7 +18,7 @@ const config = {
 			regions: ['sfo1']
 		})
 	},
-	preprocess: vitePreprocess()
+	preprocess: sequence([vitePreprocess(), preprocessMeltUI()])
 };
 
 export default config;
