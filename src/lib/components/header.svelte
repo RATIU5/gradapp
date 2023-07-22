@@ -1,3 +1,7 @@
+<script lang="ts">
+	import ThemeToggle from './theme-toggle.svelte';
+</script>
+
 <nav class="flex space-between w-full max-w-5xl bg-white/50 backdrop-blur-lg fixed">
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -19,5 +23,7 @@
 		<li>List</li>
 		<li>Login</li>
 	</ul>
-	<div />
+	<div>
+		<ThemeToggle />
+	</div>
 </nav>
