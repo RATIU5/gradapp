@@ -37,6 +37,9 @@
   },
   "type": "module",
   "dependencies": {
-    "@melt-ui/svelte": "^0.24.1"
+    "@svelteuidev/composables": "^0.14.0",
+    "@svelteuidev/core": "^0.14.0",
+    "@svelteuidev/motion": "^0.14.0",
+    "lucide-svelte": "^0.263.0"
   }
 }
