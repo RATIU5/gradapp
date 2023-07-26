@@ -1,4 +1,8 @@
-export const POST = (({ url }) => {
+import type { RequestHandler } from "@sveltejs/kit";
 
-}) satisfies RequestHandler;
+export const POST: RequestHandler = async ({ request }) => {o
+
+   const body = (await request.json());
+
+}
 
