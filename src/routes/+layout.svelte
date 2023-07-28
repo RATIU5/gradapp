@@ -7,7 +7,7 @@
 	<header class="w-[calc(100% - 2rem)] flex justify-center mx-2 sticky top-0">
 		<Header />
 	</header>
-	<main class="flex-grow">
+	<main class="flex items-center flex-col flex-grow mt-12">
 		<slot />
 	</main>
 	<footer class="flex justify-center py-2">

@@ -10,12 +10,8 @@ export const load = (() => {
                     {
                         firstname: "Kevin",
                         lastname: "Charles",
-                        programid: 21,
-                        email: "test@test.com",
                         platinum: true,
                         highschool: false,
-                        persontype: 2,
-                        present: true,
                         id: "1234567890"
                     }
                 ]
@@ -23,5 +19,4 @@ export const load = (() => {
         ]
     }
 }) satisfies PageLoad;
-
 
