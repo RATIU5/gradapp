@@ -34,7 +34,7 @@ export const POST = (async ({ request }) => {
         return json(data);
 
     } catch(e: any) {
-        return json({error: e.message});
+        return json({ data: e.message }, { status: 500 });
     }
      
 }) satisfies RequestHandler;
