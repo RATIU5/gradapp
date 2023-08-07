@@ -1,20 +1,18 @@
 <script lang="ts">
-    import type { PageData } from "./$types";
 
-    export let data: PageData;
 </script>
 
-<h2 class="text-3xl mb-14" >Graduation List</h2>
-{#each data.attendees as p (p.id)}
-    <div class="flex flex-col justify-center items-center w-full max-w-md">
-        <h3 class="text-xl mb-2">{p.programname}</h3>
-        <div class="bg-neutral-100 py-6 w-full rounded-xl">
-            {#each p.students as s (s.id)}
-                <div class="grid grid-cols-5 justify-center items-center">
-                    <div class="col-span-2 flex justify-end">{s.platinum ? "*" : undefined}</div>
-                    <div class="col-span-3">{s.firstname + " " + s.lastname}</div>
-                </div>
-            {/each}
+<div>
+    <div class="max-w-2xl">
+        <h1 class="text-6xl font-bold leading-tight">Meet Our Shining Graduates</h1>
+        <p class="text-2xl text-neutral-700 font-light">Illuminating their future with achievements!</p>
+        <div>
+            <button class="bg-red-400 px-4 py-2 text-xl rounded-lg">Graduates</button>
+            <button class="border-red-400 border border-solid px-4 py-2 text-xl rounded-lg">Check In</button>
         </div>
     </div>
-{/each}
+
+    <div>
+        <img src="/img/graduate.png" alt="Man in graduation gown" />
+    </div>
+</div>

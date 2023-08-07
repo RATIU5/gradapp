@@ -1,22 +1,6 @@
 import supabase from "$lib/server/db.server";
 import { json, type RequestHandler } from "@sveltejs/kit";
 
-export type Output = {
-    id: string;
-    name: string;
-    people: {
-        id: string;
-        firstname: string;
-        lastname: string;
-        programid: number;
-        email: string;
-        platinum: boolean;
-        highschool: boolean;
-        persontype: 1 | 2 | 3;
-        present: boolean;
-    }
-}[] | string;
-
 export const GET = (async () => {
     try {
         const { data, error } = await supabase.from("programs")
