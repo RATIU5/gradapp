@@ -1,7 +1,14 @@
 <script lang="ts">
-	import { GraduationCap } from 'lucide-svelte';
+	import { GraduationCap, Menu } from 'lucide-svelte';
 	import ThemeToggle from './theme-toggle.svelte';
+
+    
 </script>
+
+
+<div>
+    <Menu />
+</div>
 
 <nav
 	class="flex justify-between items-center my-4 rounded-full py-2 px-4 w-full max-w-4xl bg-white/50 backdrop-blur-lg border border-neutral-200 border-solid"
