@@ -3,7 +3,8 @@
 	import { cn } from '$lib/utils/fn';
 	import { Home, GraduationCap, Lock, Users } from 'lucide-svelte';
 
-	let path = $page.url.pathname;
+	let path: string;
+	$: path = $page.url.pathname;
 </script>
 
 <nav class="flex-grow flex fixed bottom-0 w-full">

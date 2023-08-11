@@ -41,6 +41,7 @@
     "@tanstack/svelte-query": "^4.32.1",
     "clsx": "^2.0.0",
     "lucide-svelte": "^0.263.0",
+    "svelte-gestures": "^1.5.2",
     "tailwind-merge": "^1.14.0"
   }
 }
