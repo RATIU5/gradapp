@@ -37,10 +37,11 @@ type AllAttendeesData =
 			programs: {
 				name: string;
 			};
-	  }[]
-	| string;
+	  }[];
 
-export async function getAllAttendees() {
+export async function getAllAttendees(
+	fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>
+) {
 	const result = await fetch('/api/db/get-all-attendees');
 	if (!result.ok) throw new Error('Could not fetch all attendees');
 	const { data } = await result.json();

@@ -1,7 +1,7 @@
 <script lang="ts">
 </script>
 
-<div class="flex h-full px-4 items-center lg:flex-row flex-col">
+<div class="flex px-4 items-center justify-center lg:flex-row flex-col">
 	<div class="w-64 mx-auto mb-8">
 		<img src="/img/graduate.png" alt="Man in graduation gown" class="rounded-full" />
 	</div>

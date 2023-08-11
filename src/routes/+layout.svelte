@@ -41,7 +41,7 @@
 	<header class="w-full">
 		<Header />
 	</header>
-	<main class="flex flex-grow items-center mb-16">
+	<main class="flex flex-grow mb-16 w-full">
 		<slot />
 	</main>
 	<footer class="py-2 hidden">
