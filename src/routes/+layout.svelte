@@ -8,7 +8,7 @@
 	let path: string;
 	$: path = $page.url.pathname;
 
-	function handler(event) {
+	function handler(event: any) {
 		let direction = event.detail.direction;
 		switch (direction) {
 			case 'left':
