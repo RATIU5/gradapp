@@ -7,7 +7,9 @@
 	</div>
 
 	<div class="max-w-xl">
-		<h1 class="text-4xl font-bold mb-6 text-center">Meet Our Shining Graduates</h1>
+		<h1 class="text-4xl font-bold mb-6 text-center text-neutral-800">
+			Meet Our Shining <span class="text-red-400">Graduates</span>
+		</h1>
 		<p class="text-xl text-neutral-700 font-light text-center mb-8">
 			Illuminating their future with achievements!
 		</p>

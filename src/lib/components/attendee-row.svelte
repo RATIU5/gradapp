@@ -1,26 +1,40 @@
 <script lang="ts">
+	import { cn } from '$lib/utils/fn';
 	import type { AllAttendeesData } from '$lib/utils/types';
 	import { Award, Gem } from 'lucide-svelte';
 
 	export let attendee: AllAttendeesData;
 </script>
 
-<div class="flex bg-neutral-100">
+<div class="flex items-center bg-neutral-100 mb-4 p-2 rounded-lg">
 	<div class="flex w-20">
-		<div class="w-8">
+		<div class="w-6 text-red-400">
 			{#if attendee.highschool}
 				<Award />
 			{/if}
 		</div>
-		<div class="w-8">
+		<div class="w-6 text-red-400">
 			{#if attendee.platinum}
 				<Gem />
 			{/if}
 		</div>
 	</div>
-	<div class="flex-grow">{attendee.firstname} {attendee.lastname}</div>
+	<div class="flex-grow text-neutral-600">{attendee.firstname} {attendee.lastname}</div>
 	<div class="hidden">{attendee.programs.name}</div>
-	<div class="w-20">
-		<button>Check In</button>
+	<div class="w-24">
+		<button
+			class={cn(
+				'w-24 text-center py-2 text-sm bg-red-400 rounded-lg text-white active:scale-105 transition-all ease-in-out duration-100',
+				{
+					'bg-neutral-200 text-neutral-600': attendee.present
+				}
+			)}
+		>
+			{#if attendee.present}
+				Check Out
+			{:else}
+				Check In
+			{/if}
+		</button>
 	</div>
 </div>

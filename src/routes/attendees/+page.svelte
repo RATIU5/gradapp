@@ -5,7 +5,7 @@
 	export let data: PageData;
 </script>
 
-<div class="w-full">
+<div class="w-full pb-12">
 	{#if data.attendees.length === 0}
 		<div class="w-full h-full flex flex-col items-center justify-center">
 			<img
@@ -17,11 +17,11 @@
 		</div>
 	{:else}
 		<div>
-			<div class="flex">
+			<div class="flex py-2 sticky top-0 bg-white">
 				<div class="w-20"><p class="my-2">Awards</p></div>
 				<div class="flex-grow"><p class="my-2">Name</p></div>
 				<div class=" hidden"><p class="my-2">Department</p></div>
-				<div class="w-20"><p class="my-2">Actions</p></div>
+				<div class="w-24"><p class="my-2">Actions</p></div>
 			</div>
 			<div class="">
 				{#each data.attendees as attendee}
