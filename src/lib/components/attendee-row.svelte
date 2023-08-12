@@ -5,24 +5,22 @@
 	export let attendee: AllAttendeesData;
 </script>
 
-<tr>
-	<div class="my-2">
-		<td class="flex justify-center items-center">
-			<div class="w-8">
-				{#if attendee.highschool}
-					<Award />
-				{/if}
-			</div>
-			<div class="w-8">
-				{#if attendee.platinum}
-					<Gem />
-				{/if}
-			</div>
-		</td>
-		<td>{attendee.firstname} {attendee.lastname}</td>
-		<td class="hidden">{attendee.programs.name}</td>
-		<td>
-			<button>Check In</button>
-		</td>
+<div class="flex bg-neutral-100">
+	<div class="flex w-20">
+		<div class="w-8">
+			{#if attendee.highschool}
+				<Award />
+			{/if}
+		</div>
+		<div class="w-8">
+			{#if attendee.platinum}
+				<Gem />
+			{/if}
+		</div>
 	</div>
-</tr>
+	<div class="flex-grow">{attendee.firstname} {attendee.lastname}</div>
+	<div class="hidden">{attendee.programs.name}</div>
+	<div class="w-20">
+		<button>Check In</button>
+	</div>
+</div>

@@ -16,20 +16,18 @@
 			<h3 class="font-light text-lg text-neutral-500">Hmm, no attendees found.</h3>
 		</div>
 	{:else}
-		<table class="w-full">
-			<thead>
-				<tr>
-					<th>Awards</th>
-					<th>Name</th>
-					<th class="hidden">Department</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
+		<div>
+			<div class="flex">
+				<div class="w-20"><p class="my-2">Awards</p></div>
+				<div class="flex-grow"><p class="my-2">Name</p></div>
+				<div class=" hidden"><p class="my-2">Department</p></div>
+				<div class="w-20"><p class="my-2">Actions</p></div>
+			</div>
+			<div class="">
 				{#each data.attendees as attendee}
 					<AttendeeRow {attendee} />
 				{/each}
-			</tbody>
-		</table>
+			</div>
+		</div>
 	{/if}
 </div>
