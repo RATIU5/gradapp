@@ -7,7 +7,7 @@
 	$: path = $page.url.pathname;
 </script>
 
-<nav class="flex-grow flex fixed bottom-0 w-full">
+<nav class="flex-grow flex fixed bottom-0 w-full border-t border-solid border-neutral-100 z-50">
 	<ul class="flex w-full justify-around py-4 bg-white">
 		<li>
 			<a
