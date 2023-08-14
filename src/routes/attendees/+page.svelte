@@ -16,25 +16,17 @@
 			<h3 class="font-light text-lg text-neutral-500">Hmm, no attendees found.</h3>
 		</div>
 	{:else}
-		<div class="fixed bottom-14 left-0 z-40 w-full px-4">
+		<div class="fixed md:relative bottom-14 md:bottom-0 md:mt-12 left-0 z-40 w-full px-4 max-w-2xl">
 			<input
 				type="text"
 				class="w-full border rounded-full px-4 py-2 mb-4 shadow-md"
 				placeholder="Search"
 			/>
 		</div>
-		<div>
-			<div class="flex py-2 sticky top-0 bg-white text-neutral-500 font-bold">
-				<div class="w-20"><p class="my-2">Awards</p></div>
-				<div class="flex-grow"><p class="my-2">Name</p></div>
-				<div class=" hidden"><p class="my-2">Department</p></div>
-				<div class="w-24"><p class="my-2">Actions</p></div>
-			</div>
-			<div class="">
-				{#each data.attendees as attendee}
-					<AttendeeRow {attendee} />
-				{/each}
-			</div>
+		<div class="mt-12 md:mt-0">
+			{#each data.attendees as attendee}
+				<AttendeeRow {attendee} />
+			{/each}
 		</div>
 	{/if}
 </div>

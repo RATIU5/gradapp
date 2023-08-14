@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	<div class="flex-grow text-neutral-600">{attendee.firstname} {attendee.lastname}</div>
-	<div class="hidden">{attendee.programs.name}</div>
+	<div class="hidden flex-grow sm:block text-neutral-400">{attendee.programs.name}</div>
 	<div class="w-24">
 		<button
 			class={cn(
