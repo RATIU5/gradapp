@@ -19,7 +19,7 @@
 		{#if program.people.length > 0}
 			<div class="w-full mb-12">
 				<div
-					class="sticky top-0 w-full mt-6 bg-white py-2 px-2 border-b border-t border-solid border-neutral-200"
+					class="sticky top-0 lg:top-14 w-full mt-6 bg-white py-2 px-2 border-b border-t border-solid border-neutral-200"
 				>
 					<h2 class="text-3xl text-center text-red-400">{program.name}</h2>
 				</div>
