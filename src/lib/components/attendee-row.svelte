@@ -1,9 +1,14 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/fn';
 	import type { AllAttendeesData } from '$lib/utils/types';
+	import { createMutation, createQuery } from '@tanstack/svelte-query';
 	import { Award, Gem } from 'lucide-svelte';
 
 	export let attendee: AllAttendeesData;
+
+	const changePresentStatus = createMutation(async (status: boolean) => {
+		const res = await fetch();
+	});
 </script>
 
 <div class="flex items-center bg-neutral-100 mb-4 p-2 rounded-lg">
@@ -23,6 +28,7 @@
 	<div class="hidden flex-grow sm:block text-neutral-400">{attendee.programs.name}</div>
 	<div class="w-24">
 		<button
+			on:click={() => {}}
 			class={cn(
 				'w-24 text-center py-2 text-sm bg-red-400 rounded-lg text-white active:scale-105 transition-all ease-in-out duration-100',
 				{

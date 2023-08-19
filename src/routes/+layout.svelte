@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css';
+	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
 	import { page } from '$app/stores';
 	import Header from '$lib/components/header.svelte';
 	import { swipe } from 'svelte-gestures';
@@ -31,20 +32,26 @@
 				break;
 		}
 	}
+
+	const queryClient = new QueryClient();
 </script>
 
-<div
-	use:swipe={{ timeframe: 300, minSwipeDistance: 100, touchAction: 'pan-y' }}
-	on:swipe={handler}
-	class="flex min-h-screen flex-col relative justify-center items-center"
->
-	<header class="w-full">
-		<Header />
-	</header>
-	<main class="flex flex-grow mb-16 w-full lg:mt-14">
-		<slot />
-	</main>
-	<footer class="py-2 hidden">
-		<p class="text-neutral-400">gradapp by <a href="https://avioma.com/">AVIOMA</a> &copy; 2023</p>
-	</footer>
-</div>
+<QueryClientProvider client={queryClient}>
+	<div
+		use:swipe={{ timeframe: 300, minSwipeDistance: 100, touchAction: 'pan-y' }}
+		on:swipe={handler}
+		class="flex min-h-screen flex-col relative justify-center items-center"
+	>
+		<header class="w-full">
+			<Header />
+		</header>
+		<main class="flex flex-grow mb-16 w-full lg:mt-14">
+			<slot />
+		</main>
+		<footer class="py-2 hidden">
+			<p class="text-neutral-400">
+				gradapp by <a href="https://avioma.com/">AVIOMA</a> &copy; 2023
+			</p>
+		</footer>
+	</div>
+</QueryClientProvider>
