@@ -1,13 +1,23 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/fn';
 	import type { AllAttendeesData } from '$lib/utils/types';
-	import { createMutation, createQuery } from '@tanstack/svelte-query';
+	import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
 	import { Award, Gem } from 'lucide-svelte';
 
 	export let attendee: AllAttendeesData;
 
-	const changePresentStatus = createMutation(async (status: boolean) => {
-		const res = await fetch();
+	const client = useQueryClient();
+
+	const presentMutation = createMutation({
+		mutationFn: async (body: { status: boolean; id: string }) => {
+			await fetch('/api/db/set-present-status', {
+				method: 'POST',
+				body: JSON.stringify(body)
+			});
+		},
+		onSuccess: () => {
+			client.invalidateQueries(['attendees']);
+		}
 	});
 </script>
 
@@ -28,7 +38,9 @@
 	<div class="hidden flex-grow sm:block text-neutral-400">{attendee.programs.name}</div>
 	<div class="w-24">
 		<button
-			on:click={() => {}}
+			on:click={() => {
+				$presentMutation.mutate({ status: !attendee.present, id: attendee.id });
+			}}
 			class={cn(
 				'w-24 text-center py-2 text-sm bg-red-400 rounded-lg text-white active:scale-105 transition-all ease-in-out duration-100',
 				{
@@ -36,7 +48,9 @@
 				}
 			)}
 		>
-			{#if attendee.present}
+			{#if $presentMutation.isLoading}
+				Loading...
+			{:else if attendee.present}
 				Check Out
 			{:else}
 				Check In
