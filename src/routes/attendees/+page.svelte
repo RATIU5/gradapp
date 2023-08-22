@@ -60,7 +60,7 @@
 		</div>
 	{:else}
 		<div class="mt-12 lg:mt-0">
-			{#each filteredAttendees as attendee}
+			{#each filteredAttendees.sort((a, b) => a.lastname.localeCompare(b.lastname)) as attendee}
 				<AttendeeRow {attendee} />
 			{/each}
 		</div>

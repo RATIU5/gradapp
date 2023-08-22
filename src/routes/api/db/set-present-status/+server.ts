@@ -4,7 +4,6 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 export const POST = (async ({ request }) => {
 	try {
 		const body = await request.json();
-		console.log(body);
 
 		const { data, error } = await supabase
 			.from('people')
