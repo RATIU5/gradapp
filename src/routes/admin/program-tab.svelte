@@ -1,3 +1,7 @@
+<script>
+	import { enhance } from '$app/forms';
+</script>
+
 <div class="flex flex-col mx-4">
 	<div class="border-b border-solid border-neutral-200 py-4">
 		<form method="POST" action="?/add-programs">
@@ -33,7 +37,7 @@
 		</form>
 	</div>
 	<div>
-		<form class="flex flex-col justify-center" method="POST" action="?/save-program">
+		<form class="flex flex-col justify-center" method="POST" action="?/save-program" use:enhance>
 			<label class="mt-2">
 				<p class="mb-1 mt-2 text-sm text-neutral-600">Program Name</p>
 				<input
@@ -41,6 +45,7 @@
 					type="text"
 					placeholder="Forestry"
 					class="bg-neutral-50 px-4 py-2 w-full text-md border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+					required
 				/>
 			</label>
 			<button

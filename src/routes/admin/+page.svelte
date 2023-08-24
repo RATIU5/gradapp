@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Tabs from '$lib/components/ui/tabs.svelte';
 	import ProgramTab from './program-tab.svelte';
 	import StudentTab from './student-tab.svelte';
