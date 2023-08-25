@@ -1,8 +1,17 @@
 <script lang="ts">
+	import { parseCSV$ } from '$lib/utils/cvs-parser';
+	import { z } from 'zod';
+
+	let uploadFileContent: string | undefined = undefined;
 	let programNameInput = '';
 	let files: undefined | FileList = undefined;
 	let inputDisabled = false;
 	let programInputErrorMsg: undefined | string = undefined;
+
+	$: {
+		if (uploadFileContent) {
+		}
+	}
 
 	async function addProgramHandler() {
 		const programName = programNameInput.trim();
@@ -19,8 +28,31 @@
 		if (programName !== '') {
 			programs.push({ name: programName });
 		} else {
-			for (const file of files) {
-				programs.push();
+			const file = files[0];
+			try {
+				if (file) {
+					const reader = new FileReader();
+					reader.onload = (event) => {
+						try {
+							const content = event.target?.result as string;
+							if (file.name.endsWith('.csv')) {
+								const programs = parseCSV$(content, {
+									headerNames: ['name'],
+									columnTypes: [z.string()]
+								});
+							} else {
+								throw new Error('Invalid file type; csv expected');
+							}
+						} catch (err) {
+							console.error(err);
+						}
+					};
+					reader.readAsText(file);
+				} else {
+					throw new Error('No file selected');
+				}
+			} catch (e: any) {
+				console.error('huh');
 			}
 		}
 

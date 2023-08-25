@@ -3,7 +3,7 @@
 	let inputDisabled = false;
 	let programInputErrorMsg: undefined | string = undefined;
 
-	async function addProgramHandler() {
+	async function addStudentHandler() {
 		if (programNameInput.trim() === '') {
 			programInputErrorMsg = 'Program name cannot be empty';
 			return;
@@ -81,7 +81,7 @@
 			{/if}
 
 			<button
-				on:click={addProgramHandler}
+				on:click={addStudentHandler}
 				class="px-4 py-2 mt-4 bg-neutral-100 rounded-lg active:bg-sky-100 text-neutral-600 disabled:text-neutral-400"
 				>Add</button
 			>
