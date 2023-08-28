@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { signIn, signOut } from '@auth/sveltekit/client';
 </script>
 
 <div class="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
@@ -14,9 +13,8 @@
 				Sign in to your account
 			</h2>
 		</div>
-		<button
-			on:click={() => signIn()}
-			aria-label="Continue with google"
+		<a
+			href="/login/google"
 			class="bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-300 flex items-center w-full mt-10"
 		>
 			<svg
@@ -44,6 +42,6 @@
 				/>
 			</svg>
 			<p class="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
-		</button>
+		</a>
 	</div>
 </div>
