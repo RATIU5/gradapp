@@ -39,33 +39,66 @@
 				{/if}
 			</a>
 		</li>
-		<li class="lg:mx-2">
-			<a
-				href="/attendees"
-				class={cn('block w-8 h-8 text-neutral-400 relative lg:w-auto lg:h-auto', {
-					'text-red-400': path === '/attendees'
-				})}
-			>
-				<Users class="w-full h-full lg:hidden" />
-				<p class="hidden lg:block lg:m-0">Attendees</p>
-				{#if path === '/attendees'}
-					<div class="w-2 h-2 bg-red-400 rounded-full absolute -bottom-2 left-3 lg:hidden" />
-				{/if}
-			</a>
-		</li>
-		<li class="lg:mx-2">
-			<a
-				href="/admin"
-				class={cn('block w-8 h-8 text-neutral-400 relative lg:w-auto lg:h-auto', {
-					'text-red-400': path === '/admin'
-				})}
-			>
-				<Lock class="w-full h-full lg:hidden" />
-				<p class="hidden lg:block lg:m-0">Admin</p>
-				{#if path === '/admin'}
-					<div class="w-2 h-2 bg-red-400 rounded-full absolute -bottom-2 left-3 lg:hidden" />
-				{/if}
-			</a>
-		</li>
+		{#if $page.data.session}
+			<li class="lg:mx-2">
+				<a
+					href="/attendees"
+					class={cn('block w-8 h-8 text-neutral-400 relative lg:w-auto lg:h-auto', {
+						'text-red-400': path === '/attendees'
+					})}
+				>
+					<Users class="w-full h-full lg:hidden" />
+					<p class="hidden lg:block lg:m-0">Attendees</p>
+					{#if path === '/attendees'}
+						<div class="w-2 h-2 bg-red-400 rounded-full absolute -bottom-2 left-3 lg:hidden" />
+					{/if}
+				</a>
+			</li>
+			<li class="lg:mx-2">
+				<a
+					href="/admin"
+					class={cn('block w-8 h-8 text-neutral-400 relative lg:w-auto lg:h-auto', {
+						'text-red-400': path === '/admin'
+					})}
+				>
+					<Lock class="w-full h-full lg:hidden" />
+					<p class="hidden lg:block lg:m-0">Admin</p>
+					{#if path === '/admin'}
+						<div class="w-2 h-2 bg-red-400 rounded-full absolute -bottom-2 left-3 lg:hidden" />
+					{/if}
+				</a>
+			</li>
+		{/if}
+		{#if $page.data.session}
+			<li class="lg:mx-2">
+				<a
+					href="/auth/logout"
+					class={cn('block w-8 h-8 text-neutral-400 relative lg:w-auto lg:h-auto', {
+						'text-red-400': path === '/auth/logout'
+					})}
+				>
+					<Lock class="w-full h-full lg:hidden" />
+					<p class="hidden lg:block lg:m-0">Logout</p>
+					{#if path === '/auth/logout'}
+						<div class="w-2 h-2 bg-red-400 rounded-full absolute -bottom-2 left-3 lg:hidden" />
+					{/if}
+				</a>
+			</li>
+		{:else}
+			<li class="lg:mx-2">
+				<a
+					href="/auth/login"
+					class={cn('block w-8 h-8 text-neutral-400 relative lg:w-auto lg:h-auto', {
+						'text-red-400': path === '/auth/login'
+					})}
+				>
+					<Lock class="w-full h-full lg:hidden" />
+					<p class="hidden lg:block lg:m-0">Login</p>
+					{#if path === '/auth/login'}
+						<div class="w-2 h-2 bg-red-400 rounded-full absolute -bottom-2 left-3 lg:hidden" />
+					{/if}
+				</a>
+			</li>
+		{/if}
 	</ul>
 </nav>

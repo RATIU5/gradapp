@@ -1,6 +1,6 @@
-import { createClient } from "@supabase/supabase-js"
-import { SUPABASE_URL, SUPABASE_PUBLIC_KEY } from "$env/static/private"
+import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
+import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY, {});
+const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {});
 
 export default supabase;
