@@ -30,7 +30,7 @@
 	}
 </script>
 
-<div class="flex flex-col mx-4">
+<div class="flex flex-col mx-4 w-full">
 	<div class="border-b border-solid border-neutral-200 py-4">
 		<div class="flex items-center justify-center w-full">
 			<label
