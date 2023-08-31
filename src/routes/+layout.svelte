@@ -5,6 +5,7 @@
 	import Header from '$lib/components/header.svelte';
 	import { swipe } from 'svelte-gestures';
 	import { goto } from '$app/navigation';
+	import { Toaster } from 'svelte-french-toast';
 
 	let path: string;
 	$: path = $page.url.pathname;
@@ -45,7 +46,10 @@
 		<header class="w-full">
 			<Header />
 		</header>
-		<main class="flex flex-grow mb-16 w-full lg:mt-14">
+		<main
+			class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8 flex flex-grow mb-16 w-full justify-center lg:mt-14"
+		>
+			<Toaster />
 			<slot />
 		</main>
 		<footer class="py-2 hidden">

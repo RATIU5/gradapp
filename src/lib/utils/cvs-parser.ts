@@ -3,16 +3,22 @@ import { z } from 'zod';
 type CSVOptions = {
   separator?: string;
   headerNames: string[];
-  columnTypes: (z.ZodString | z.ZodNumber | z.ZodBoolean)[];
+  columnTypes: z.ZodType<any>[];
 };
 
 export function parseCSV$(strData: string, options: CSVOptions) {
+  options.columnTypes.forEach((type, index) => {
+    if (typeof type.parse !== 'function') {
+      console.error(`Invalid Zod type at columnTypes index ${index}`);
+      throw new Error("One or more columnTypes aren't valid Zod types.");
+    }
+  });
   const separator = options.separator || ',';
-  const rows = strData.split('\n');
+  const rows = strData.split('\n').filter((row) => row.trim().length > 0);
 
   try {
     // Headers sizes match
-    const headers = rows[0].split(separator);
+    const headers = rows[0].split(separator).map((header) => header.trim());
     if (headers.length !== options.headerNames.length) {
       throw new Error(
         `CSV must have ${options.headerNames.length} columns: '${options.headerNames.join(
@@ -21,7 +27,6 @@ export function parseCSV$(strData: string, options: CSVOptions) {
       );
     }
 
-    const headerDefinition = [...headers] as const;
     // Header names match
     for (let i = 0; i < headers.length; i++) {
       const header = headers[i];
@@ -36,27 +41,34 @@ export function parseCSV$(strData: string, options: CSVOptions) {
     const arr = [];
     for (let i = 1; i < rows.length; i++) {
       // Row has same columns as header
-      const row = rows[i].split(separator);
+      const row = rows[i].split(separator).map((cell) => cell.trim());
       if (row.length !== headers.length) {
         throw new Error(
           `CSV row ${i} has ${row.length} columns, but header has ${headers.length} columns`
         );
       }
 
-      const obj: { [key: (typeof headerDefinition)[number]]: string } = {};
+      const obj: { [key: string]: any } = {}; // allowing any value type since some columns might not be strings after parsing
       // Row has valid values for each column
       for (let j = 0; j < row.length; j++) {
         const cell = row[j];
         const expectedType = options.columnTypes[j];
-        try {
-          expectedType.parse(cell);
-        } catch (e) {
-          throw new Error(
-            `CSV row ${i} column ${j + 1} has invalid value: '${cell}'; expected ${expectedType._def.typeName
-            }`
-          );
+
+        if (!expectedType) {
+          throw new Error(`Missing type definition for column ${headers[j]}`);
         }
-        obj[headers[j]] = cell;
+
+        try {
+          const parsedValue = expectedType.parse(cell);
+          obj[headers[j]] = parsedValue; // Use parsed value, which might be transformed by Zod
+        } catch (e) {
+          if (e instanceof z.ZodError) {
+            throw new Error(
+              `CSV row ${i} column ${j + 1} has an invalid value: '${cell}'. ${e.message}`
+            );
+          }
+          throw e; // rethrow other non-Zod errors
+        }
       }
 
       arr.push(obj);

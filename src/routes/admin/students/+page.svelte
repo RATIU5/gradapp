@@ -23,7 +23,7 @@
 		}
 
 		if (res.status !== 200) {
-			programInputErrorMsg = res.body.data;
+			programInputErrorMsg = res.body?.data;
 		}
 
 		inputDisabled = false;

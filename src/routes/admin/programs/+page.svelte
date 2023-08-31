@@ -1,85 +1,19 @@
 <script lang="ts">
-	import { parseCSV$ } from '$lib/utils/cvs-parser';
-	import { z } from 'zod';
-
-	let uploadFileContent: string | undefined = undefined;
 	let programNameInput = '';
 	let files: undefined | FileList = undefined;
 	let inputDisabled = false;
 	let programInputErrorMsg: undefined | string = undefined;
-
-	$: {
-		if (uploadFileContent) {
-		}
-	}
-
-	async function addProgramHandler() {
-		const programName = programNameInput.trim();
-		const programs: { name: string }[] = [];
-
-		if (programName === '' || !files) {
-			programInputErrorMsg = 'Please add program names';
-			return;
-		}
-
-		programInputErrorMsg = undefined;
-		inputDisabled = true;
-
-		if (programName !== '') {
-			programs.push({ name: programName });
-		} else {
-			const file = files[0];
-			try {
-				if (file) {
-					const reader = new FileReader();
-					reader.onload = (event) => {
-						try {
-							const content = event.target?.result as string;
-							if (file.name.endsWith('.csv')) {
-								const programs = parseCSV$(content, {
-									headerNames: ['name'],
-									columnTypes: [z.string()]
-								});
-							} else {
-								throw new Error('Invalid file type; csv expected');
-							}
-						} catch (err) {
-							console.error(err);
-						}
-					};
-					reader.readAsText(file);
-				} else {
-					throw new Error('No file selected');
-				}
-			} catch (e: any) {
-				console.error('huh');
-			}
-		}
-
-		const res = await fetch('/api/db/add-programs', {
-			method: 'POST',
-			body: JSON.stringify(programs)
-		});
-
-		programNameInput = '';
-
-		if (!res.ok) {
-			programInputErrorMsg = 'Failed to add new program';
-		}
-
-		if (res.status !== 200) {
-			programInputErrorMsg = res.body.data;
-		}
-
-		inputDisabled = false;
-	}
 </script>
 
-<div class="flex flex-col mx-4">
+<div class="flex flex-col mx-4 w-full">
 	<div class="border-b border-solid border-neutral-200 py-4">
-		<div class="flex items-center justify-center w-full">
+		<form
+			action="?/uploadCSV"
+			enctype="multipart/form-data"
+			method="POST"
+			class="flex items-center flex-col justify-center w-full"
+		>
 			<label
-				for="dropzone-file"
 				class="flex flex-col items-center justify-center w-full h-32 border-2 border-neutral-300 border-dashed rounded-lg cursor-pointer bg-neutral-50 hover:bg-neutral-100"
 			>
 				<div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -103,9 +37,14 @@
 						SVG, PNG, JPG or GIF (MAX. 800x400px)
 					</p>
 				</div>
-				<input bind:files id="dropzone-file" type="file" accept="text/csv" class="hidden" />
+				<input name="file" type="file" accept="text/csv" class="hidden" />
 			</label>
-		</div>
+			<button
+				type="submit"
+				class="px-4 w-full py-2 mt-4 bg-neutral-100 rounded-lg active:bg-sky-100 text-neutral-600 disabled:text-neutral-400"
+				>Add</button
+			>
+		</form>
 	</div>
 	<div>
 		<div class="flex flex-col justify-center">
