@@ -1,4 +1,4 @@
-import supabase from '$lib/server/db.server';
+import supabase from '$lib/server/db';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const GET = (async () => {

@@ -1,5 +1,5 @@
-import supabase from "$lib/server/db.server";
-import { json, type RequestHandler } from "@sveltejs/kit";
+import supabase from '$lib/server/db';
+import { json, type RequestHandler } from '@sveltejs/kit';
 
 export type Input = {
     firstname: string;
@@ -11,10 +11,9 @@ export type Input = {
     isfaculty: boolean;
 }[];
 export const POST = (async ({ request }) => {
-
     try {
-        const body = (await request.json());
-        
+        const body = await request.json();
+
         for (let i = 0; i < body.length; i++) {
             if (body[i].isfaculty) {
                 body[i].persontype = 3;
@@ -25,16 +24,14 @@ export const POST = (async ({ request }) => {
             body[i].present = false;
         }
 
-        const { data, error } = await supabase.from("people").insert(body).select();
+        const { data, error } = await supabase.from('people').insert(body).select();
 
         if (error) {
             throw new Error(error.message);
         }
-        
-        return json(data);
 
-    } catch(e: any) {
+        return json(data);
+    } catch (e: any) {
         return json({ data: e.message }, { status: 500 });
     }
-     
 }) satisfies RequestHandler;

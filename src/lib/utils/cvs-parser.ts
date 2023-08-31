@@ -63,9 +63,7 @@ export function parseCSV$(strData: string, options: CSVOptions) {
           obj[headers[j]] = parsedValue; // Use parsed value, which might be transformed by Zod
         } catch (e) {
           if (e instanceof z.ZodError) {
-            throw new Error(
-              `CSV row ${i} column ${j + 1} has an invalid value: '${cell}'. ${e.message}`
-            );
+            throw new Error(`${e.message}`);
           }
           throw e; // rethrow other non-Zod errors
         }
