@@ -3,7 +3,7 @@
 	import { cn } from '$lib/utils/fn';
 </script>
 
-<div class="flex w-full flex-col max-w-2xl items-center">
+<div class="flex w-full flex-col max-w-2xl items-center px-4">
 	<div class="bg-neutral-100 rounded-lg p-1">
 		<a
 			href="/admin/students"
