@@ -58,12 +58,12 @@
 				<a
 					href="/admin"
 					class={cn('block w-8 h-8 text-neutral-400 relative lg:w-auto lg:h-auto', {
-						'text-red-400': path === '/admin'
+						'text-red-400': path.includes('/admin')
 					})}
 				>
 					<UserCog class="w-full h-full lg:hidden" />
 					<p class="hidden lg:block lg:m-0">Admin</p>
-					{#if path === '/admin'}
+					{#if path.includes('/admin')}
 						<div class="w-2 h-2 bg-red-400 rounded-full absolute -bottom-2 left-3 lg:hidden" />
 					{/if}
 				</a>
