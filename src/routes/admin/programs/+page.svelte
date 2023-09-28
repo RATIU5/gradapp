@@ -1,16 +1,13 @@
 <script lang="ts">
 	import toast from 'svelte-french-toast';
+	import type { ActionData } from './$types';
 
-	let programNameInput = '';
-	let files: undefined | FileList = undefined;
-	let inputDisabled = false;
+	export let form: ActionData;
 	let programInputErrorMsg: undefined | string = undefined;
-
-	export let form: FormData;
 
 	if (form?.error) {
 		console.error(form?.message);
-		toast.error('There was a problem reading the file', {
+		toast.error('There was a problem importing the file', {
 			position: 'top-right'
 		});
 	}
