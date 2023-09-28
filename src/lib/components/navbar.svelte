@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { cn } from '$lib/utils/fn';
-	import { Home, GraduationCap, Lock, Users } from 'lucide-svelte';
+	import { Home, GraduationCap, Lock, Users, UserCog } from 'lucide-svelte';
 
 	let path: string;
 	$: path = $page.url.pathname;
@@ -61,7 +61,7 @@
 						'text-red-400': path === '/admin'
 					})}
 				>
-					<Lock class="w-full h-full lg:hidden" />
+					<UserCog class="w-full h-full lg:hidden" />
 					<p class="hidden lg:block lg:m-0">Admin</p>
 					{#if path === '/admin'}
 						<div class="w-2 h-2 bg-red-400 rounded-full absolute -bottom-2 left-3 lg:hidden" />
