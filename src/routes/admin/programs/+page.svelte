@@ -1,9 +1,11 @@
 <script lang="ts">
 	import toast from 'svelte-french-toast';
 	import type { ActionData } from './$types';
+	import Input from '$lib/components/ui/input.svelte';
 
 	export let form: ActionData;
 	let programInputErrorMsg: undefined | string = undefined;
+	let programValue = '';
 
 	if (form?.error) {
 		console.error(form?.message);
@@ -61,19 +63,7 @@
 	</div>
 	<div>
 		<form action="?/uploadName" method="POST" class="flex flex-col justify-center">
-			<label class="mt-2">
-				<p class="mb-1 mt-2 text-sm text-neutral-600">Program Name</p>
-				<input
-					name="name"
-					type="text"
-					placeholder="Forestry"
-					class="bg-neutral-50 px-4 py-2 w-full text-md border border-neutral-300 text-neutral-900 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-				/>
-			</label>
-			{#if programInputErrorMsg}
-				<p class="text-red-500 text-sm">{programInputErrorMsg}</p>
-			{/if}
-
+			<Input label="Program Name" name="name" value={programValue} disabled={false} />
 			<button
 				class="px-4 py-2 mt-4 bg-neutral-100 rounded-lg active:bg-sky-100 text-neutral-600 disabled:text-neutral-400"
 				>Add</button
