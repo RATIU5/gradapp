@@ -6,7 +6,7 @@
 	let programInputErrorMsg: undefined | string = undefined;
 
 	const fetchPrograms = async () => ( 
-		await fetch("/api/db/get-all-programs").then((p) => p.json()))
+		await fetch("/api/db/get-all-programs").then((p) => p.json())).data
 
 	const fetchAttendees = async (): Promise<AllAttendeesData[]> =>
 		(await fetch('/api/db/get-all-attendees').then((a) => a.json())).data;
