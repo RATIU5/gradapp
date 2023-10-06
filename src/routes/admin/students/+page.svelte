@@ -1,44 +1,19 @@
 <script lang="ts">
 	import Input from '$lib/components/ui/input.svelte';
+	import type { AllProgramsData } from '$lib/utils/types';
+	import { createQuery } from '@tanstack/svelte-query';
+	import type { PageData } from './$types';
 
-	let programNameInput = '';
-	let inputDisabled = false;
-	let programInputErrorMsg: undefined | string = undefined;
+	export let data: PageData;
 
-	const fetchAttendees = async (): Promise<AllAttendeesData[]> =>
-		(await fetch('/api/db/get-all-attendees').then((a) => a.json())).data;
+	const fetchPrograms = async (): Promise<AllProgramsData[]> =>
+		(await fetch('/api/db/get-all-programs').then((p) => p.json())).data;
 
-	const attendees = createQuery<AllAttendeesData[], Error>({
-		queryKey: ['attendees'],
-		initialData: data.attendees,
-		queryFn: fetchAttendees
+	const programs = createQuery<AllProgramsData[], Error>({
+		queryKey: ['programs'],
+		initialData: data.programs,
+		queryFn: fetchPrograms
 	});
-
-	async function addStudentHandler() {
-		if (programNameInput.trim() === '') {
-			programInputErrorMsg = 'Program name cannot be empty';
-			return;
-		}
-
-		inputDisabled = true;
-		programInputErrorMsg = undefined;
-		const res = await fetch('/api/db/add-programs', {
-			method: 'POST',
-			body: JSON.stringify([{ name: programNameInput }])
-		});
-
-		programNameInput = '';
-
-		if (!res.ok) {
-			programInputErrorMsg = 'Failed to add new program';
-		}
-
-		if (res.status !== 200) {
-			programInputErrorMsg = res.body?.data;
-		}
-
-		inputDisabled = false;
-	}
 </script>
 
 <div class="flex flex-col mx-4 w-full">
@@ -87,13 +62,15 @@
 			<Input label="First Name" name="firstName" type="text" disabled={false} />
 			<Input label="Last Name" name="lastName" type="text" disabled={false} />
 			<select>
-				{#each  }
-				</select>
+				{#each $programs.data as program}
+					<option value={program.id}>{program.name}</option>
+				{/each}
+			</select>
 			<Input label="Email" name="email" type="text" disabled={false} />
 			<Input label="Platinum" name="platinum" type="checkbox" disabled={false} />
 			<Input label="High School" name="highschool" type="checkbox" disabled={false} />
 			<button
-				on:click={addStudentHandler}
+				on:click={() => {}}
 				class="px-4 py-2 mt-4 bg-neutral-100 rounded-lg active:bg-sky-100 text-neutral-600 disabled:text-neutral-400"
 				>Add</button
 			>

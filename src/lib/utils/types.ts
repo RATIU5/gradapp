@@ -28,3 +28,8 @@ export type PresentGraduateData = {
 		programid: number;
 	}[];
 };
+
+export type AllProgramsData = {
+	id: string;
+	name: string;
+};

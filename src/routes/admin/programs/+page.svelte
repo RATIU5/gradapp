@@ -4,7 +4,6 @@
 	import Input from '$lib/components/ui/input.svelte';
 
 	export let form: ActionData;
-	let programInputErrorMsg: undefined | string = undefined;
 	let programValue = '';
 
 	if (form?.error) {
