@@ -1,7 +1,18 @@
 <script lang="ts">
+	import Input from '$lib/components/ui/input.svelte';
+
 	let programNameInput = '';
 	let inputDisabled = false;
 	let programInputErrorMsg: undefined | string = undefined;
+
+	const fetchAttendees = async (): Promise<AllAttendeesData[]> =>
+		(await fetch('/api/db/get-all-attendees').then((a) => a.json())).data;
+
+	const attendees = createQuery<AllAttendeesData[], Error>({
+		queryKey: ['attendees'],
+		initialData: data.attendees,
+		queryFn: fetchAttendees
+	});
 
 	async function addStudentHandler() {
 		if (programNameInput.trim() === '') {
@@ -73,22 +84,14 @@
 	</div>
 	<div>
 		<div class="flex flex-col justify-center">
-			<label class="mt-2">
-				<p class="mb-1 mt-2 text-sm text-neutral-600">Program Name</p>
-				<input
-					disabled={inputDisabled}
-					on:input={() => (programInputErrorMsg = undefined)}
-					bind:value={programNameInput}
-					name="program-name"
-					type="text"
-					placeholder="Forestry"
-					class="bg-neutral-50 px-4 py-2 w-full text-md border border-neutral-300 text-neutral-900 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-				/>
-			</label>
-			{#if programInputErrorMsg}
-				<p class="text-red-500 text-sm">{programInputErrorMsg}</p>
-			{/if}
-
+			<Input label="First Name" name="firstName" type="text" disabled={false} />
+			<Input label="Last Name" name="lastName" type="text" disabled={false} />
+			<select>
+				{#each  }
+				</select>
+			<Input label="Email" name="email" type="text" disabled={false} />
+			<Input label="Platinum" name="platinum" type="checkbox" disabled={false} />
+			<Input label="High School" name="highschool" type="checkbox" disabled={false} />
 			<button
 				on:click={addStudentHandler}
 				class="px-4 py-2 mt-4 bg-neutral-100 rounded-lg active:bg-sky-100 text-neutral-600 disabled:text-neutral-400"
