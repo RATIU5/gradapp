@@ -62,8 +62,8 @@
 			<Input label="First Name" name="firstName" type="text" disabled={false} />
 			<Input label="Last Name" name="lastName" type="text" disabled={false} />
 			<select>
-				{#each programs.data as program}
-					<option value={program}>{program}</option>
+				{#each $programs.data as program}
+					<option value={program.id}>{program.name}</option>
 				{/each}
 			</select>
 			<Input label="Email" name="email" type="text" disabled={false} />
