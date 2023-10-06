@@ -3,7 +3,7 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const GET = (async () => {
 	try {
-		const { data, error } = await supabase.from('people').select(`*, programs ( name )`);
+		const { data, error } = await supabase.from('programs').select(`name`);
 
 		if (error) {
 			throw error;
