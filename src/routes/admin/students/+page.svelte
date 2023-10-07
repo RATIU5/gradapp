@@ -59,13 +59,19 @@
 	</div>
 	<div>
 		<div class="flex flex-col justify-center">
-			<Input label="First Name" name="firstName" type="text" disabled={false} />
-			<Input label="Last Name" name="lastName" type="text" disabled={false} />
-			<select>
-				{#each $programs.data as program}
-					<option value={program.id}>{program.name}</option>
-				{/each}
-			</select>
+			<Input label="First Name" name="firstName" type="text" placeholder="Homer" disabled={false} />
+			<Input label="Last Name" name="lastName" type="text" placeholder="Simpson" disabled={false} />
+			<label class="mt-2">
+				<p class="mb-1 mt-2 text-sm text-neutral-600">Program</p>
+				<select
+					class="bg-neutral-50 px-4 py-2 w-full text-md border border-neutral-300 text-neutral-900 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+				>
+					<option selected disabled>Select a program</option>
+					{#each $programs.data as program}
+						<option value={program.id}>{program.name}</option>
+					{/each}
+				</select>
+			</label>
 			<Input label="Email" name="email" type="text" disabled={false} />
 			<Input label="Platinum" name="platinum" type="checkbox" disabled={false} />
 			<Input label="High School" name="highschool" type="checkbox" disabled={false} />
