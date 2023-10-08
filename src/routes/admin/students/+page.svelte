@@ -16,8 +16,11 @@
 	});
 </script>
 
-<div class="flex flex-col mx-4 w-full">
-	<div class="border-b border-solid border-neutral-200 py-4">
+<div class="flex flex-col mx-4 w-full md:flex-row md:mt-4">
+	<div
+		class="border-b border-solid border-neutral-200 py-4 md:border-r md:border-b-0 md:py-0 md:pr-4"
+	>
+		<h3 class="text-xl text-neutral-600 mb-4 text-center">Import Students</h3>
 		<form
 			action="?/uploadCSV"
 			enctype="multipart/form-data"
@@ -46,7 +49,7 @@
 					<p class="mb-2 text-sm text-neutral-500 dark:text-neutral-400">
 						<span class="font-semibold">Click to upload</span> or drag and drop
 					</p>
-					<p class="text-xs text-neutral-500 dark:text-neutral-400">CSV (200mb Max)</p>
+					<p class="text-xs text-neutral-500 dark:text-neutral-400">CSV (200mb max)</p>
 				</div>
 				<input id="dropzone-file" type="file" class="hidden" />
 			</label>
@@ -57,7 +60,8 @@
 			>
 		</form>
 	</div>
-	<div>
+	<div class="md:pl-4">
+		<h3 class="text-xl text-neutral-600 mb-4 text-center">Add Student Manually</h3>
 		<div class="flex flex-col justify-center">
 			<Input label="First Name" name="firstName" type="text" placeholder="Homer" disabled={false} />
 			<Input label="Last Name" name="lastName" type="text" placeholder="Simpson" disabled={false} />
