@@ -1,10 +1,13 @@
 <script lang="ts">
+	import toast from 'svelte-french-toast';
+	import type { ActionData } from './$types';
 	import Input from '$lib/components/ui/input.svelte';
 	import type { AllProgramsData } from '$lib/utils/types';
 	import { createQuery } from '@tanstack/svelte-query';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+	export let form: ActionData;
 
 	const fetchPrograms = async (): Promise<AllProgramsData[]> =>
 		(await fetch('/api/db/get-all-programs').then((p) => p.json())).data;
@@ -14,10 +17,28 @@
 		initialData: data.programs,
 		queryFn: fetchPrograms
 	});
+
+	let programValue = '';
+
+	if (form?.error) {
+		console.error(form?.message);
+		toast.error('There was a problem importing the file', {
+			position: 'top-right'
+		});
+	}
+
+	if (form?.success) {
+		toast.success('Programs added successfully', {
+			position: 'top-right'
+		});
+	}
 </script>
 
-<div class="flex flex-col mx-4 w-full">
-	<div class="border-b border-solid border-neutral-200 py-4">
+<div class="flex flex-col mx-4 w-full md:flex-row md:mt-4">
+	<div
+		class="border-b border-solid border-neutral-200 py-4 md:border-r md:border-b-0 md:py-0 md:pr-4"
+	>
+		<h3 class="text-xl text-neutral-600 mb-4 text-center">Import Students</h3>
 		<form
 			action="?/uploadCSV"
 			enctype="multipart/form-data"
@@ -46,7 +67,7 @@
 					<p class="mb-2 text-sm text-neutral-500 dark:text-neutral-400">
 						<span class="font-semibold">Click to upload</span> or drag and drop
 					</p>
-					<p class="text-xs text-neutral-500 dark:text-neutral-400">CSV (200mb Max)</p>
+					<p class="text-xs text-neutral-500 dark:text-neutral-400">CSV (200mb max)</p>
 				</div>
 				<input id="dropzone-file" type="file" class="hidden" />
 			</label>
@@ -57,15 +78,22 @@
 			>
 		</form>
 	</div>
-	<div>
+	<form action="?/uploadStudent" enctype="multipart/form-data" method="POST" class="md:pl-4">
+		<h3 class="text-xl text-neutral-600 mb-4 text-center">Add Student Manually</h3>
 		<div class="flex flex-col justify-center">
-			<Input label="First Name" name="firstName" type="text" disabled={false} />
-			<Input label="Last Name" name="lastName" type="text" disabled={false} />
-			<select>
-				{#each $programs.data as program}
-					<option value={program.id}>{program.name}</option>
-				{/each}
-			</select>
+			<Input label="First Name" name="firstName" type="text" placeholder="Homer" disabled={false} />
+			<Input label="Last Name" name="lastName" type="text" placeholder="Simpson" disabled={false} />
+			<label class="mt-2">
+				<p class="mb-1 mt-2 text-sm text-neutral-600">Program</p>
+				<select
+					class="bg-neutral-50 px-4 py-2 w-full text-md border border-neutral-300 text-neutral-900 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+				>
+					<option selected disabled>Select a program</option>
+					{#each $programs.data as program}
+						<option value={program.id}>{program.name}</option>
+					{/each}
+				</select>
+			</label>
 			<Input label="Email" name="email" type="text" disabled={false} />
 			<Input label="Platinum" name="platinum" type="checkbox" disabled={false} />
 			<Input label="High School" name="highschool" type="checkbox" disabled={false} />
@@ -75,5 +103,5 @@
 				>Add</button
 			>
 		</div>
-	</div>
+	</form>
 </div>

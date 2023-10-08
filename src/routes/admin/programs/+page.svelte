@@ -20,8 +20,11 @@
 	}
 </script>
 
-<div class="flex flex-col mx-4 w-full">
-	<div class="border-b border-solid border-neutral-200 py-4">
+<div class="flex flex-col mx-4 w-full md:flex-row md:mt-4">
+	<div
+		class="border-b border-solid border-neutral-200 py-4 md:border-r md:border-b-0 md:py-0 md:pr-4"
+	>
+		<h3 class="text-xl text-neutral-600 mb-4 text-center">Import Programs</h3>
 		<form
 			action="?/uploadCSV"
 			enctype="multipart/form-data"
@@ -60,7 +63,8 @@
 			>
 		</form>
 	</div>
-	<div>
+	<div class="md:pl-4">
+		<h3 class="text-xl text-neutral-600 mb-4 text-center">Import Program Manually</h3>
 		<form action="?/uploadName" method="POST" class="flex flex-col justify-center">
 			<Input label="Program Name" name="name" value={programValue} disabled={false} />
 			<button
