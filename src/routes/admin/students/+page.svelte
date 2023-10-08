@@ -1,10 +1,13 @@
 <script lang="ts">
+	import toast from 'svelte-french-toast';
+	import type { ActionData } from './$types';
 	import Input from '$lib/components/ui/input.svelte';
 	import type { AllProgramsData } from '$lib/utils/types';
 	import { createQuery } from '@tanstack/svelte-query';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+	export let form: ActionData;
 
 	const fetchPrograms = async (): Promise<AllProgramsData[]> =>
 		(await fetch('/api/db/get-all-programs').then((p) => p.json())).data;
@@ -14,6 +17,21 @@
 		initialData: data.programs,
 		queryFn: fetchPrograms
 	});
+
+	let programValue = '';
+
+	if (form?.error) {
+		console.error(form?.message);
+		toast.error('There was a problem importing the file', {
+			position: 'top-right'
+		});
+	}
+
+	if (form?.success) {
+		toast.success('Programs added successfully', {
+			position: 'top-right'
+		});
+	}
 </script>
 
 <div class="flex flex-col mx-4 w-full md:flex-row md:mt-4">
@@ -60,7 +78,7 @@
 			>
 		</form>
 	</div>
-	<div class="md:pl-4">
+	<form action="?/uploadStudent" enctype="multipart/form-data" method="POST" class="md:pl-4">
 		<h3 class="text-xl text-neutral-600 mb-4 text-center">Add Student Manually</h3>
 		<div class="flex flex-col justify-center">
 			<Input label="First Name" name="firstName" type="text" placeholder="Homer" disabled={false} />
@@ -85,5 +103,5 @@
 				>Add</button
 			>
 		</div>
-	</div>
+	</form>
 </div>

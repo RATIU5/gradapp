@@ -10,27 +10,34 @@
 	let value = defaultValue || '';
 
 	function handleInput(e: any) {
-		console.log(e.target.value);
+		errorMsg = undefined;
+		value = e.target.value;
 	}
 </script>
 
 <label
 	class={cn('mt-2', {
-		'flex flex-row': type === 'radio' || type === 'checkbox'
+		'flex flex-row-reverse justify-end items-center': type === 'radio' || type === 'checkbox'
 	})}
 >
-	<p class="mb-1 mt-2 text-sm text-neutral-600">
+	<p
+		class={cn('mb-1 mt-2 text-sm text-neutral-600', {
+			'mt-1': type === 'radio' || type === 'checkbox'
+		})}
+	>
 		{label}
 	</p>
 	<input
 		{disabled}
 		{type}
 		{value}
-		on:input={(e) => {
-			errorMsg = undefined;
-			handleInput(e);
-		}}
-		class="bg-neutral-50 px-4 py-2 w-full text-md border border-neutral-300 text-neutral-900 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+		on:input={handleInput}
+		class={cn(
+			'bg-neutral-50 px-4 py-2 w-full text-md border border-neutral-300 text-neutral-900 rounded-lg focus:ring-blue-500 focus:border-blue-500',
+			{
+				'w-auto mr-2': type === 'radio' || type === 'checkbox'
+			}
+		)}
 		{...$$restProps}
 	/>
 </label>
