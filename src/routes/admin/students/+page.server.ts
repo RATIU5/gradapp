@@ -37,19 +37,42 @@ export const actions: Actions = {
 
   uploadStudent: async ({ request }) => {
     const formData = await request.formData();
-    const firstName = formData.get('name') as string;
-    const lastName = formData.get('name') as string;
-    const email = formData.get('name') as string;
-    const programId = formData.get('name') as string;
-    const platinum = formData.get('name') as string;
-    const highSchool = formData.get('name') as string;
+    const firstName = formData.get('firstName') as string;
+    const lastName = formData.get('lastName') as string;
+    const email = formData.get('email') as string;
+    const programId = formData.get('programId') as string;
+    const platinum = formData.get('platinum') as string;
+    const highSchool = formData.get('highschool') as string;
 
-    if (!name || name === '') {
-      return fail(400, { error: true, message: 'Name must be provided' });
+    if (!firstName || firstName === '') {
+      return fail(400, { error: true, message: 'First name must be provided' });
+    }
+    if (!lastName || lastName === '') {
+      return fail(400, { error: true, message: 'Last name must be provided' });
+    }
+    if (!email || email === '') {
+      return fail(400, { error: true, message: 'Email must be provided' });
+    }
+    if (!programId) {
+      return fail(400, { error: true, message: 'Program must be provided' });
     }
 
     try {
-      const { error } = await supabase.from('programs').insert([{ name }]).select();
+      const { error } = await supabase
+        .from('people')
+        .insert([
+          {
+            firstname: firstName,
+            lastname: lastName,
+            programid: programId,
+            email,
+            platinum,
+            highschool: highSchool,
+            present: false,
+            persontype: 2
+          }
+        ])
+        .select();
 
       if (error) {
         throw error;
