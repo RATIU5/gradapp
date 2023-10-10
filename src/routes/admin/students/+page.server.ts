@@ -66,8 +66,8 @@ export const actions: Actions = {
             lastname: lastName,
             programid: programId,
             email,
-            platinum,
-            highschool: highSchool,
+            platinum: platinum ? true : false,
+            highschool: highSchool ? true : false,
             present: false,
             persontype: 2
           }
