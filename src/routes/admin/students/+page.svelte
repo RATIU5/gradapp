@@ -56,7 +56,7 @@
 					</p>
 					<p class="text-xs text-neutral-500 dark:text-neutral-400">CSV (200mb max)</p>
 				</div>
-				<input id="dropzone-file" type="file" class="hidden" />
+				<input id="dropzone-file" name="file" type="file" class="hidden" />
 			</label>
 			<button
 				type="submit"

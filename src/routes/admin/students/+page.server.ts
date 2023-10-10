@@ -9,12 +9,18 @@ export const actions: Actions = {
     const formData = await request.formData();
     const file = formData.get('file') as Blob;
 
+    console.log(file);
+
     if (file?.size <= 0) {
       return fail(400, { error: true, message: 'No file uploaded' });
     }
 
     if (!(file instanceof File)) {
       return fail(400, { error: true, message: 'Invalid file upload' });
+    }
+
+    if (file.type !== 'text/csv') {
+      return fail(400, { error: true, message: 'File is not CSV' });
     }
 
     try {
