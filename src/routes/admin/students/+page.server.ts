@@ -49,11 +49,11 @@ export const actions: Actions = {
       });
       console.log(fileData);
 
-      // const { data, error } = await supabase.from('people').insert(fileData).select();
+      const { data, error } = await supabase.from('people').insert(fileData).select();
 
-      // if (error) {
-      //   throw new Error(error);
-      // }
+      if (error) {
+        throw new Error(error);
+      }
       return { success: true };
     } catch (e) {
       return fail(400, { error: true, message: e.message });
