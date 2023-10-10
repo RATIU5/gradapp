@@ -2,27 +2,14 @@
 	import toast from 'svelte-french-toast';
 	import type { ActionData } from './$types';
 	import Input from '$lib/components/ui/input.svelte';
-	import type { AllProgramsData } from '$lib/utils/types';
-	import { createQuery } from '@tanstack/svelte-query';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	export let form: ActionData;
 
-	const fetchPrograms = async (): Promise<AllProgramsData[]> =>
-		(await fetch('/api/db/get-all-programs').then((p) => p.json())).data;
-
-	const programs = createQuery<AllProgramsData[], Error>({
-		queryKey: ['programs'],
-		initialData: data.programs,
-		queryFn: fetchPrograms
-	});
-
-	let programValue = '';
-
 	if (form?.error) {
 		console.error(form?.message);
-		toast.error('There was a problem importing the file', {
+		toast.error(form?.message, {
 			position: 'top-right'
 		});
 	}
@@ -69,7 +56,7 @@
 					</p>
 					<p class="text-xs text-neutral-500 dark:text-neutral-400">CSV (200mb max)</p>
 				</div>
-				<input id="dropzone-file" type="file" class="hidden" />
+				<input id="dropzone-file" name="file" type="file" class="hidden" />
 			</label>
 			<button
 				type="submit"
@@ -86,19 +73,20 @@
 			<label class="mt-2">
 				<p class="mb-1 mt-2 text-sm text-neutral-600">Program</p>
 				<select
+					name="programId"
 					class="bg-neutral-50 px-4 py-2 w-full text-md border border-neutral-300 text-neutral-900 rounded-lg focus:ring-blue-500 focus:border-blue-500"
 				>
 					<option selected disabled>Select a program</option>
-					{#each $programs.data as program}
+					{#each data.programs as program}
 						<option value={program.id}>{program.name}</option>
 					{/each}
 				</select>
 			</label>
 			<Input label="Email" name="email" type="text" disabled={false} />
-			<Input label="Platinum" name="platinum" type="checkbox" disabled={false} />
-			<Input label="High School" name="highschool" type="checkbox" disabled={false} />
+			<Input label="Platinum" value="plat" name="platinum" type="checkbox" disabled={false} />
+			<Input label="High School" value="hs" name="highschool" type="checkbox" disabled={false} />
 			<button
-				on:click={() => {}}
+				type="submit"
 				class="px-4 py-2 mt-4 bg-neutral-100 rounded-lg active:bg-sky-100 text-neutral-600 disabled:text-neutral-400"
 				>Add</button
 			>
