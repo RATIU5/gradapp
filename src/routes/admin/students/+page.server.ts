@@ -20,15 +20,34 @@ export const actions: Actions = {
     try {
       const fileString = await file.text();
       const fileData = parseCSV$(fileString, {
-        headerNames: ['name'],
-        columnTypes: [z.string()]
+        headerNames: [
+          'firstname',
+          'lastname',
+          'programid',
+          'email',
+          'platinum',
+          'highschool',
+          'persontype',
+          'present'
+        ],
+        columnTypes: [
+          z.string(),
+          z.string(),
+          z.number(),
+          z.string(),
+          z.boolean(),
+          z.boolean(),
+          z.number(),
+          z.boolean()
+        ]
       });
+      console.log(fileData);
 
-      const { data, error } = await supabase.from('programs').insert(fileData).select();
+      // const { data, error } = await supabase.from('people').insert(fileData).select();
 
-      if (error) {
-        throw new Error(error);
-      }
+      // if (error) {
+      //   throw new Error(error);
+      // }
       return { success: true };
     } catch (e) {
       return fail(400, { error: true, message: e.message });
